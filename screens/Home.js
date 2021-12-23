@@ -13,12 +13,18 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-       
+         <Button
+        onPress={() => navigation.navigate("Login")}
+        title="Log in"
+       color="hotpink" 
+       /> 
+       <Separator />
       <Button
         onPress={() => navigation.navigate("Second")}
         title="One Day Trip"
        color="#ffc107" 
        />  
+     
    <Separator />
 
    <Button

@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { SafeAreaView, StyleSheet, View, Button, Image } from "react-native";
+import { SafeAreaView, StyleSheet, View, Button,} from "react-native";
 
 const Separator = () => (
   <View style={styles.separator} />
@@ -34,7 +34,7 @@ const Home = () => {
        />  
    <Separator />
    <Button
-        onPress={() => navigation.navigate("Second")}
+        onPress={() => navigation.navigate("localTrip")}
         title="Local Trip"
        color="#841584" 
        />  

@@ -2,10 +2,9 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet, Text, View } from "react-native";
 import Home from "../screens/Home";
-import Second from "../screens/Second";
-
+import onedaytrip from "../screens/onedaytrip"
 import LocalTrip from "../screens/localTrip";
-import MyModal from "../screens/MyModal"; 
+import Normaltaxi from "../screens/Normaltaxi"; 
 import Login from "../screens/Login";
 
 const Stack = createNativeStackNavigator();
@@ -17,9 +16,10 @@ const StackNavigator = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="localTrip" component={LocalTrip} />
         <Stack.Screen name="Log in" component={Login} />
+        <Stack.Screen name="OneDayTrip" component={onedaytrip} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={MyModal} />
+        <Stack.Screen name="Normaltaxi" component={Normaltaxi} />
         <Stack.Screen name="Login" component={Login} />
       </Stack.Group>
     </Stack.Navigator>

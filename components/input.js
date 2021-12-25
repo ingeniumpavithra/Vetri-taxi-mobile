@@ -1,5 +1,5 @@
 import React from 'react'
-import { View,StyleSheet ,TextInput  } from 'react-native'
+import { View,StyleSheet ,TextInput } from 'react-native'
 import { Entypo as Icon } from '@expo/vector-icons';
 
 export default function input({icon,error,touched,...otherProps}) {
@@ -21,6 +21,7 @@ export default function input({icon,error,touched,...otherProps}) {
           <Icon name={icon} color={validationColor} size={16} />
         </View>
         <View style={{ flex: 1 }}>
+          
           <TextInput
             underlineColorAndroid='transparent'
             placeholderTextColor='rgba(34, 62, 75, 0.7)'

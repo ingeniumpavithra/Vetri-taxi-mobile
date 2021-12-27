@@ -5,49 +5,51 @@ import { useFormik } from 'formik'
 import Button from '../components/button'
 
 
-  const { handleChange,
-      handleSubmit,
-      touched } = useFormik({
-      //   validationSchema: TripSchema,
-        initialValues: { username: '', password: '' },
-        onSubmit: () =>
-          alert("")
-      });
+  
 const Billonedaytrip = (props) => {   
-      const {
-        data
-      } = props;
+
+  const { 
+    handleChange,
+    handleSubmit,
+    touched } 
+    = useFormik(
+      {initialValues: { username: '', password: '' },
+      onSubmit: () =>
+        alert("")
+    });
      
   return (
 <View
          style={{
             flex: 1,
-            justifyContent: 'center'
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
             
     <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%', justifyContent: 'center'}}>
         <Card >
           
-        <Text style={{ color: '#223e4b', fontSize: 28, marginBottom: 16, marginLeft: 50, fontWeight: 'bold', }}>
+        <Text style={{ color: '#223e4b', fontSize: 28, marginBottom: 16, alignItems: 'center', fontWeight: 'bold', }}>
         Traffic Calculation 
        </Text> 
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16, marginLeft: 50, }}>
-          Initital payment : {data.initial_payment}
+      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16, }}>
+          Initital payment : 
       </Text>
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16, marginLeft: 50, }}>
-          Price Per KM :  {data.distance_travel * 7}
+      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          Price Per KM : 
       </Text>
-      <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, marginLeft: 50, fontWeight: 'bold', }}>
-         Total : {parseInt(data.initial_payment) + (data.distance_travel * 7)}
+      <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
+         Total :
       </Text>
      
-      <Button label='Submit' onPress={handleSubmit}/>
       </Card>
       </View>
+      <Button label='Submit' onPress={handleSubmit}/>
+
     </View>
 
   );
 };
 
-export default Billonedaytrip() 
+export default Billonedaytrip;
 

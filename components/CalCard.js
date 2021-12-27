@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
      shadowRadius: 2,
      marginHorizontal: 2,
      marginVertical: 6,
+     alignItems: 'center',
     },
     cardcontent: {
         marginHorizontal: 5,

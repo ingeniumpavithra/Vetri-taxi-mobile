@@ -1,23 +1,31 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { View ,Text} from 'react-native'
 import { useFormik } from 'formik'
-
+import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
 
-export default function onedaytrip() {
-    const { handleChange,
-        handleSubmit,
-        handleBlur,
-        values,
-        errors,
-        touched } = useFormik({
-        //   validationSchema: TripSchema,
-          initialValues: { username: '', password: '' },
-          onSubmit: () =>
-            alert("")
-        });
 
+
+export default function onedaytrip() {
+  
+const [data, setData] = useState({
+        customer_name:'',
+        mobile_no:'',
+        initial_payment:1800,
+        distance_travel:'',
+      });
+      
+const handleChange = (e,name) => {
+      setData(data => ({
+        ...data,
+        [name]:e.target.value
+      }));
+} 
+            
+
+
+ const navigation = useNavigation();      
     return (
         <View
          style={{
@@ -39,11 +47,9 @@ export default function onedaytrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('customerName')}
-          onBlur={handleBlur('customerName')}
-          error={errors.username}
-          value={values.username}
-          touched={touched.username}
+          value={data.customer_name}
+          onChange = {(e)=>handleChange(e,'customer_name')}
+
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -55,27 +61,20 @@ export default function onedaytrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('phoneNumber')}
-          onBlur={handleBlur('PhoneNumber')}
-          error={errors.phoneNumber}
-          value={values.PhoneNumber}
-          touched={touched.phoneNumber}
+          onChange = {(e)=>handleChange(e,'Phonenumber')}
+           value={data.Phonenumber}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
         <Input
           icon='briefcase'
-          placeholder='Initital Amount'
+          placeholder='Initital Payment'
           autoCapitalize='none'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('Initital Amount')}
-          onBlur={handleBlur('Initital Amount')}
-          error={errors.InititalAmount}
-          value={values.InititalAmount}
-          touched={touched.InititalAmount}
+          value={data.initial_payment}
         />
      </View>
        <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -88,17 +87,17 @@ export default function onedaytrip() {
           returnKeyType='next'
           returnKeyLabel='next'
           disabled={true}
-          onChangeText={handleChange('Distance Allowed')}
-          onBlur={handleBlur('DistanceAllowed')}
-          error={errors.DistanceAllowed}
-          value={values.DistanceAllowed}
-          touched={touched.DistanceAllowed}
+          onChange = {(e)=>handleChange(e,'distance_travel')}
+          value={data.distance_travel}
         />
       </View>
       
      
-      <Button label='Next' onPress={handleSubmit} />
+      <Button  label='Next'
+       onPress={() => navigation.navigate("Billonedaytrip")}
 
+        />
+     
         </View>
     )
 }

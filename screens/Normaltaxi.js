@@ -1,7 +1,6 @@
 import React from 'react'
 import { View ,Text} from 'react-native'
 import { useFormik } from 'formik'
-
 import Input from '../components/input'
 import Button from '../components/button'
 
@@ -32,90 +31,108 @@ export default function LocalTrip() {
       </Text>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
         <Input
-          icon='car'
-          placeholder='Customer Name'
+          icon='arrow-left'
+          placeholder='From'
           autoCapitalize='none'
-          autoCompleteType='username'
+          autoCompleteType='From'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('customerName')}
-          onBlur={handleBlur('customerName')}
-          error={errors.username}
-          value={values.username}
-          touched={touched.username}
+          onChangeText={handleChange('From')}
+          onBlur={handleBlur('From')}
+          error={errors.From}
+          value={values.From}
+          touched={touched.From}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='arrow-right'
+          placeholder='To'
+          autoCapitalize='none'
+          autoCompleteType='To'
+          keyboardType='default'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          onChangeText={handleChange('To')}
+          onBlur={handleBlur('To')}
+          error={errors.To}
+          value={values.To}
+          touched={touched.To}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='user'
+          placeholder='Customer Name'
+          autoCapitalize='none'
+          autoCompleteType='customername'
+          keyboardType='default'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          onChangeText={handleChange('customername')}
+          onBlur={handleBlur('customername')}
+          error={errors.customername}
+          value={values.customername}
+          touched={touched.customername}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
         <Input
           icon='phone'
-          placeholder='Phone number'
+          placeholder='phone number'
           autoCapitalize='none'
-          autoCompleteType='username'
-          keyboardType='default'
-          keyboardAppearance='dark'
-          returnKeyType='next'
-          returnKeyLabel='next'
-          onChangeText={handleChange('phoneNumber')}
-          onBlur={handleBlur('PhoneNumber')}
-          error={errors.phoneNumber}
-          value={values.PhoneNumber}
-          touched={touched.phoneNumber}
-        />
-      </View>
-      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
-        <Input
-          icon='clock'
-          placeholder='Trip Hour'
-          autoCapitalize='none'
-          autoCompleteType='username'
-          keyboardType='default'
-          keyboardAppearance='dark'
-          returnKeyType='next'
-          returnKeyLabel='next'
-          onChangeText={handleChange('hour')}
-          onBlur={handleBlur('hour')}
-          error={errors.hour}
-          value={values.hour}
-          touched={touched.hour}
-        />
-      </View>
-      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
-        <Input
-          icon='gauge'
-          placeholder='Kms Allowed'
-          autoCapitalize='none'
-          autoCompleteType='username'
+          autoCompleteType='phonenumber'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
           disabled={true}
-          onChangeText={handleChange('customerName')}
-          onBlur={handleBlur('customerName')}
-          error={errors.customerName}
-          value={values.customerName}
-          touched={touched.customerName}
+          onChangeText={handleChange('phonenumber')}
+          onBlur={handleBlur('phonenumber')}
+          error={errors.phonenumber}
+          value={values.phonenumber}
+          touched={touched.phonenumber}
         />
       </View>
       
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
         <Input
        
-          icon='arrow-with-circle-up'
-          placeholder='Extra Kms'
+          icon='gauge'
+          placeholder='Distance Travelled'
           autoCapitalize='none'
-          autoCompleteType='username'
+          autoCompleteType='distancetravelled'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('extraKms')}
-          onBlur={handleBlur('extraKms')}
-          error={errors.extraKms}
-          value={values.extraKms}
-          touched={touched.extraKms}
+          onChangeText={handleChange('distancetravelled')}
+          onBlur={handleBlur('distancetravelled')}
+          error={errors.distancetravelled}
+          value={values.distancetravelled}
+          touched={touched.distancetravelled}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+       
+          icon='compass'
+          placeholder='Waiting Charge'
+          autoCapitalize='none'
+          autoCompleteType='waitingcharge'
+          keyboardType='default'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          onChangeText={handleChange('waitingcharge')}
+          onBlur={handleBlur('waitingcharge')}
+          error={errors.waitingcharge}
+          value={values.waitingcharge}
+          touched={touched.waitingcharge}
         />
       </View>
       <Button label='Next' onPress={handleSubmit} />

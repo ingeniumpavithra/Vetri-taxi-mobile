@@ -7,6 +7,8 @@ import LocalTrip from "../screens/localTrip";
 import Normaltaxi from "../screens/Normaltaxi"; 
 import Login from "../screens/Login";
 import Billonedaytrip from "../screens/Billonedaytrip"
+import Hillstrip from "../screens/Hillstrip";
+
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
@@ -18,6 +20,7 @@ const StackNavigator = () => {
         <Stack.Screen name="Log in" component={Login} />
         <Stack.Screen name="onedaytrip" component={onedaytrip} />
         <Stack.Screen name="Billonedaytrip" component={Billonedaytrip} />
+        <Stack.Screen name="Hillstrip" component={Hillstrip} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Normaltaxi" component={Normaltaxi} />

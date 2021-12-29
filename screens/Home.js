@@ -40,7 +40,7 @@ const Home = () => {
        />  
    <Separator />
    <Button
-        onPress={() => navigation.navigate("Second")}
+        onPress={() => navigation.navigate("Hillstrip")}
         title="Hills Trip"
        color="#ffc107" 
        />  

@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View,} from "react-native";
-import Card from '../components/Calcard'
+import { StyleSheet, Text, View,} from "react-native"
+import Card from '../components/CalCard'
 import { useFormik } from 'formik'
 import Button from '../components/button'
 

@@ -1,21 +1,54 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { View ,Text} from 'react-native'
-import { useFormik } from 'formik'
+
 import Input from '../components/input'
 import Button from '../components/button'
 
 export default function LocalTrip() {
-    const { handleChange,
-        handleSubmit,
-        handleBlur,
-        values,
-        errors,
-        touched } = useFormik({
-        //   validationSchema: TripSchema,
-          initialValues: { username: '', password: '' },
-          onSubmit: () =>
-            alert("")
-        });
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [km, setKm] = useState("");
+  const [hr, setHr] = useState("");
+
+  let result = 12 * km;
+  let w_charge = 0 ;
+  let d_batta = 0 ;
+
+  km>=300 ? d_batta = 300 : d_batta = 0 ;
+
+  function subHandler(e) {
+      e.preventDefault();
+      let data = {
+          from: start,
+          to: end,
+          cus_name: name,
+          mobile: phone,
+          distance: km,
+          w_hour: hr,
+          w_charge: w_charge,
+          driver_batta: d_batta,
+          total: result
+        }
+      console.log(JSON.stringify(data))
+      // async function addbill(){
+      //     const response = await axios.post("http://127.0.0.1:8000/api/auth/taxi-trip",data);
+      //     if(response){
+      //       alert(response.data.message);
+      //     }else{
+      //       alert("Something went wrong..!");
+      //     }
+      //   }
+      //  addbill();
+
+          setStart("")
+          setEnd("")
+          setName("")
+          setPhone("")
+          setKm("")
+          setHr("")
+  }
 
     return (
         <View
@@ -39,11 +72,10 @@ export default function LocalTrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('From')}
-          onBlur={handleBlur('From')}
-          error={errors.From}
-          value={values.From}
-          touched={touched.From}
+          onChangeText={setStart}
+         
+          value={start}
+        
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -56,11 +88,10 @@ export default function LocalTrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('To')}
-          onBlur={handleBlur('To')}
-          error={errors.To}
-          value={values.To}
-          touched={touched.To}
+          onChangeText={setEnd}
+        
+          value={end}
+         
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -73,11 +104,10 @@ export default function LocalTrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('customername')}
-          onBlur={handleBlur('customername')}
-          error={errors.customername}
-          value={values.customername}
-          touched={touched.customername}
+          onChangeText={setName}
+          
+          value={name}
+         
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -90,12 +120,11 @@ export default function LocalTrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          disabled={true}
-          onChangeText={handleChange('phonenumber')}
-          onBlur={handleBlur('phonenumber')}
-          error={errors.phonenumber}
-          value={values.phonenumber}
-          touched={touched.phonenumber}
+         
+          onChangeText={setPhone}
+         
+          value={phone}
+        
         />
       </View>
       
@@ -110,11 +139,10 @@ export default function LocalTrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('distancetravelled')}
-          onBlur={handleBlur('distancetravelled')}
-          error={errors.distancetravelled}
-          value={values.distancetravelled}
-          touched={touched.distancetravelled}
+          onChangeText={setKm}
+         
+          value={km}
+        
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -128,14 +156,13 @@ export default function LocalTrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={handleChange('waitingcharge')}
-          onBlur={handleBlur('waitingcharge')}
-          error={errors.waitingcharge}
-          value={values.waitingcharge}
-          touched={touched.waitingcharge}
+          onChangeText={setHr}
+          
+          value={hr}
+          
         />
       </View>
-      <Button label='Next' onPress={handleSubmit} />
+      <Button label='Next' onPress={subHandler} />
 
         </View>
     )

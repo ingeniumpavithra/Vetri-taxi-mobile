@@ -6,7 +6,7 @@ import Button from '../components/button'
 
 
   
-const Billonedaytrip = (props) => {   
+const Billonedaytrip = ({ initPayment, pricePerKm,totalPrice }) => {   
 
   const { 
     handleChange,
@@ -27,19 +27,22 @@ const Billonedaytrip = (props) => {
           }}>
             
     <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%', justifyContent: 'center'}}>
-        <Card >
+        <Card initPayment={initPayment} pricePerKm={pricePerKm} totalPrice={totalPrice}>
           
         <Text style={{ color: '#223e4b', fontSize: 28, marginBottom: 16, alignItems: 'center', fontWeight: 'bold', }}>
         Traffic Calculation 
        </Text> 
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16, }}>
           Initital payment : 
+          <span>{initPayment}</span>
       </Text>
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           Price Per KM : 
+          <span>{pricePerKm}</span>
       </Text>
       <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
          Total :
+         <span>{totalPrice}</span>
       </Text>
      
       </Card>

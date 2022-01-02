@@ -1,13 +1,15 @@
-import React from "react";
+import React,{useContext} from "react";
 import { StyleSheet, Text, View,} from "react-native"
 import Card from '../components/CalCard'
 import { useFormik } from 'formik'
 import Button from '../components/button'
 
+import {BillingContext} from "../context/BillingContextProvider"
 
   
 const Billonedaytrip = ({ initPayment, pricePerKm,totalPrice }) => {   
 
+  const BillingContext = useContext(BillingContext);
   const { 
     handleChange,
     handleSubmit,

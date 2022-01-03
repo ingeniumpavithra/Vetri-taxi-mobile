@@ -12,15 +12,7 @@ const Billonedaytrip = () => {
   const {
     billingData,
   } = useContext(BillingContext);
-  const { 
-    handleChange,
-    handleSubmit,
-    touched } 
-    = useFormik(
-      {initialValues: { username: '', password: '' },
-      onSubmit: () =>
-        alert("")
-    });
+
      
   return (
 <View
@@ -38,20 +30,20 @@ const Billonedaytrip = () => {
        </Text> 
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16, }}>
           Initital payment : 
-          <span>{""}</span>
+          <span>{billingData.initial_payment || 0}</span>
       </Text>
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           Price Per KM : 
-          <span>{""}</span>
+          <span>{billingData.distance_allowed || 0}</span>
       </Text>
       <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
          Total :
-         <span>{""}</span>
+         <span>{billingData.distance_allowed * 7}</span>
       </Text>
      
       </Card>
       </View>
-      <Button label='Submit' onPress={handleSubmit}/>
+      <Button label='Submit'/>
 
     </View>
 

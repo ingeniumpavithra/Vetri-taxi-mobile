@@ -1,56 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState, useContext} from 'react'
 import { View ,Text , form} from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
-
-
+import { BillingContext } from "../context/BillingContextProvider";
 
 export default function onedaytrip() {
   
-  const [kms, setKms] = useState(0);
-  const [custName, setCustName] = useState("");
-  const [custNo, setCustNo] = useState("");
-  const initPayment = 1800;
-  const pricePerKm = 7;
-  const totalPrice = initPayment + pricePerKm * kms;
+  const {
+    billingData,
+    handleChangeBilling
+  } = useContext(BillingContext);
+  const navigation = useNavigation();
   
-  function kmsHandler(e) {
-    setKms(e.target.value);
-  }
-  function custNameHandler(e) {
-    setCustName(e.target.value);
-  }
-  function custNoHandler(e) {
-    setCustNo(e.target.value);
-  }
-  function submitHandler(e) {
-    e.preventDefault();
-    let data = {
-      cus_name: custName,
-      mobile: custNo,
-      distance: kms,
-      total: totalPrice
-    }
-    async function addbill(){
-      const response = await axios.post("http://127.0.0.1:8000",data);
-      if(response){
-        alert(response.data.message);
-      }else{
-        alert("Something went wrong..!");
-      }
-    }
-    addbill();
-
-    console.log(JSON.stringify(data));
-    setCustName("")
-    setCustNo("")
-    setKms(0)
-  }
-
-
-
- const navigation = useNavigation();      
+  
     return (
         <View
          style={{
@@ -59,7 +22,7 @@ export default function onedaytrip() {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            <form onSubmit={submitHandler} className="pt-3"></form>
+            
             <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
             ONE DAY TRIP
       </Text>
@@ -72,9 +35,8 @@ export default function onedaytrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          value={custName}
-          handler={custNameHandler}
-
+          value = {billingData.customer_name}
+          onChange = {(e)=> handleChangeBilling(e.target.value,'customer_name')}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -86,8 +48,8 @@ export default function onedaytrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          handler={custNoHandler}
-          value={custNo}
+          value = {billingData.phone_number}
+          onChange = {(e)=> handleChangeBilling(e.target.value,'phone_number')}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -99,7 +61,8 @@ export default function onedaytrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          value={initPayment}
+          value = {billingData.initial_payment}
+          onChange = {(e)=> handleChangeBilling(e.target.value,'initial_payment')}
         />
      </View>
        <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -111,9 +74,8 @@ export default function onedaytrip() {
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          disabled={true}
-          handler={kmsHandler}
-          value={kms}
+          value = {billingData.distance_allowed}
+          onChange = {(e)=> handleChangeBilling(e.target.value,'distance_allowed')}
         />
       </View>
       

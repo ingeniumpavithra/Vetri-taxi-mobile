@@ -8,11 +8,13 @@ import Normaltaxi from "../screens/Normaltaxi";
 import Login from "../screens/Login";
 import Billonedaytrip from "../screens/Billonedaytrip"
 import Hillstrip from "../screens/Hillstrip";
+import {BillingContextProvider} from "../context/BillingContextProvider";
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
+    <BillingContextProvider>
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
         <Stack.Screen name="Home" component={Home} />
@@ -27,9 +29,9 @@ const StackNavigator = () => {
         <Stack.Screen name="Login" component={Login} />
       </Stack.Group>
     </Stack.Navigator>
+    </BillingContextProvider>
   );
 };
-
 export default StackNavigator;
 
 const styles = StyleSheet.create({});

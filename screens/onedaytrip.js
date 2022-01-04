@@ -1,5 +1,5 @@
 import React,{useState, useContext} from 'react'
-import { View ,Text , form} from 'react-native'
+import { View ,Text , form, TextInput} from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
@@ -12,9 +12,7 @@ export default function onedaytrip() {
     handleChangeBilling
   } = useContext(BillingContext);
   const navigation = useNavigation();
-  
-  
-    return (
+      return (
         <View
          style={{
             flex: 1,
@@ -36,7 +34,7 @@ export default function onedaytrip() {
           returnKeyType='next'
           returnKeyLabel='next'
           value = {billingData.customer_name}
-          onChange = {(e)=> handleChangeBilling(e.target.value,'customer_name')}
+          onChangeText={value => handleChangeBilling(value,'customer_name')}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -49,7 +47,7 @@ export default function onedaytrip() {
           returnKeyType='next'
           returnKeyLabel='next'
           value = {billingData.phone_number}
-          onChange = {(e)=> handleChangeBilling(e.target.value,'phone_number')}
+          onChangeText={value => handleChangeBilling(value,'phone_number')}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -62,7 +60,7 @@ export default function onedaytrip() {
           returnKeyType='next'
           returnKeyLabel='next'
           value = {billingData.initial_payment}
-          onChange = {(e)=> handleChangeBilling(e.target.value,'initial_payment')}
+          onChangeText={value => handleChangeBilling(value,'initial_payment')}
         />
      </View>
        <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -75,7 +73,7 @@ export default function onedaytrip() {
           returnKeyType='next'
           returnKeyLabel='next'
           value = {billingData.distance_allowed}
-          onChange = {(e)=> handleChangeBilling(e.target.value,'distance_allowed')}
+          onChangeText={value => handleChangeBilling(value,'distance_allowed')}
         />
       </View>
       

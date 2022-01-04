@@ -2,7 +2,8 @@ import React from 'react'
 import { View,StyleSheet ,TextInput } from 'react-native'
 import { Entypo as Icon } from '@expo/vector-icons';
 
-export default function input({icon,error,touched,...otherProps}) {
+export default function input({icon,error,touched,value,defaultValue,...otherProps}) {
+
 
     const validationColor = !touched ? '#223e4b' : error ? '#FF5A5F' : '#223e4b';;
     return (
@@ -25,6 +26,7 @@ export default function input({icon,error,touched,...otherProps}) {
           <TextInput
             underlineColorAndroid='transparent'
             placeholderTextColor='rgba(34, 62, 75, 0.7)'
+            value={`${value}`}
             {...otherProps}
           />
         </View>

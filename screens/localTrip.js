@@ -6,7 +6,7 @@ import Input from '../components/input'
 import Button from '../components/button'
 
 export default function LocalTrip() {
-  
+  const [error, setError] = useState('');
   
   const [triphr, setTriphr] = useState("");
   const [tripkms, setTripkms] = useState("");
@@ -29,8 +29,30 @@ export default function LocalTrip() {
 }
 xtracharge > 0 ? result = payment + xtracharge : result = payment;
 
+const isValidForm = () => {
+  if (!isValidObjField(name, phone))
+  return updateError('Required all fields !', setError);
+    if (!name.trim() || name.length < 4)
+    return updateError('Invalid username !', setError);
+  if (!phone.trim() || phone.length != 10  )
+    return updateError('Phone number invalid !', setError);
+  return true
+
+}
+
+const isValidObjField = (name, phone) => {
+
+  return name.trim() && phone.trim 
+}
+const updateError = (error, stateUpdater) => {
+  stateUpdater(error);
+  setTimeout(() => {
+    stateUpdater('');
+  }, 2600);
+}
 
 function subHandler(e) {
+  if (isValidForm()) {
   e.preventDefault();
   let data = {
       triphr: triphr,
@@ -60,7 +82,7 @@ function subHandler(e) {
   setXtrakm(0)
   setTripkms("")
 }
-
+}
   
 
   
@@ -76,6 +98,7 @@ function subHandler(e) {
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
         Local Trip
       </Text>
+      {error ? <Text style={{ color: "red", paddingBottom: 12, fontSize: 18 }} >{error}</Text> : null}
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
         <Input
           icon='user'

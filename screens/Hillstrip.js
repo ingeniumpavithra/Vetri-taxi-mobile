@@ -6,7 +6,7 @@ import Input from '../components/input'
 import Button from '../components/button'
 
 const Hillstrip = () => {
-
+    const [error, setError] = useState('');
     const [tripto, setTripto] = useState("");
     const [tripdays, setTripdays] = useState("");
     const [name, setName] = useState("");
@@ -25,7 +25,41 @@ const Hillstrip = () => {
 
     batta > 0 ? result = payment + batta : result = payment;
 
+    const isValidForm = () => {
+        if (!isValidObjField( name, phone,  tripto,tripdays))
+          return updateError('Required all fields !', setError);
+       
+        if (!name.trim() || name.length < 4)
+          return updateError('Invalid username !', setError);
+        if (!phone.trim() || phone.length != 10)
+          return updateError('Phone number invalid !', setError);
+       
+        if (!tripto.trim())
+          return updateError('Select trip to !', setError);
+       
+        if (!tripdays.trim() || tripdays.length > 30)
+          return updateError('Trip days too long !', setError);
+       
+        return true
+    
+      }
+    
+      const isValidObjField = ( name, phone, tripto,tripdays) => {
+    
+        return  name.trim() && phone.trim && tripto.trim && tripdays.trim
+      }
+    
+      const updateError = (error, stateUpdater) => {
+        stateUpdater(error);
+        setTimeout(() => {
+          stateUpdater('');
+        }, 2600);
+      }
+
     function subHandler(e) {
+
+        if (isValidForm()) {
+
         e.preventDefault();
         let data = {
             trip_from: "Tiruchengode",
@@ -54,10 +88,10 @@ const Hillstrip = () => {
         setPayment("")
         setPhone("")
         setTripdays("")
-    }
-  
+    }}
+
     const [place, setPlace] = useState("Thiruchengode")
-   
+
     return (
         <View
             style={{
@@ -70,6 +104,7 @@ const Hillstrip = () => {
             <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
                 Hills Trip
             </Text>
+            {error ? <Text style={{ color: "red", paddingBottom: 12, fontSize: 18 }} >{error}</Text> : null}
             <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
                 <Input
                     icon='user'
@@ -81,10 +116,10 @@ const Hillstrip = () => {
                     returnKeyType='next'
                     returnKeyLabel='next'
                     onChangeText={setName}
-                   
-                    
+
+
                     value={name}
-                  
+
                 />
             </View>
             <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -100,10 +135,10 @@ const Hillstrip = () => {
                     onChangeText={setPhone}
                     pattern="^\d{10}$"
                     value={phone}
-                   
+
                 />
             </View>
-           
+
             <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
                 <Picker
@@ -118,8 +153,8 @@ const Hillstrip = () => {
             <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
                 <Picker
-                    selectedValue={place}
-                    onValueChange={setTripto}
+                    selectedValue={tripto}
+                    onValueChange={setTripto,tariffcalc}
 
                 >
                     <Picker.Item label="Trip To" value="" />
@@ -144,22 +179,22 @@ const Hillstrip = () => {
                     returnKeyType='next'
                     returnKeyLabel='next'
                     onChangeText={setTripdays}
-                   
+
                     value={tripdays}
                 />
             </View>
             <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
-<Picker
-    selectedValue={place}
-    onValueChange={4}
+                <Picker
+                    selectedValue={place}
+                    onValueChange={4}
 
->
-    <Picker.Item label="4" value="4" />
-   
+                >
+                    <Picker.Item label="4" value="4" />
 
-</Picker>
-</View>
+
+                </Picker>
+            </View>
             <Button label='Next' onPress={subHandler} />
 
         </View>

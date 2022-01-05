@@ -42,7 +42,7 @@ export default function onedaytrip() {
           icon='phone'
           placeholder='Phone number'
           autoCapitalize='none'
-          keyboardType='default'
+          keyboardType='numeric'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
@@ -66,14 +66,14 @@ export default function onedaytrip() {
        <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
         <Input
           icon='gauge'
-          placeholder='Distance Allowed'
+          placeholder='Distance Travelled'
           autoCapitalize='none'
-          keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          value = {billingData.distance_allowed}
-          onChangeText={value => handleChangeBilling(value,'distance_allowed')}
+          value = {billingData.distance_travelled}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'distance_travelled')}
         />
       </View>
       

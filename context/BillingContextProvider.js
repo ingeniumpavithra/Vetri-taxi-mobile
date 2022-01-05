@@ -8,7 +8,7 @@ export const BillingContextProvider = (props) => {
     customer_name:'',
     phone_number:'',
     initial_payment:1800,
-    distance_allowed:0,
+    distance_travelled:0,
   });
 
   const handleChangeBilling = (value,name) => {

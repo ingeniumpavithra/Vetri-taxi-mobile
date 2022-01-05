@@ -34,16 +34,25 @@ const Billonedaytrip = () => {
       </Text>
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           Price Per KM : 
-         {billingData.distance_allowed * 7 || 0}
+         {7 || 0}
+      </Text>
+      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          KM Price: 
+          {billingData.distance_travelled || 0}
+      </Text>
+      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Total KM Price: 
+          {billingData.distance_travelled * 7 || 0}
       </Text>
       <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
          Total :
-         {billingData.initial_payment + billingData.distance_allowed * 7}
+         {billingData.initial_payment + billingData.distance_travelled * 7}
       </Text>
      
       </Card>
       </View>
       <Button label='Submit'/>
+
 
     </View>
 

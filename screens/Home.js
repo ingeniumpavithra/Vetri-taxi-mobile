@@ -12,13 +12,6 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
         
-         <Button
-        
-        onPress={() => navigation.navigate("Login")}
-        title="Log in"
-       color="hotpink" 
-       /> 
-       <Separator />
       <Button
         onPress={() => navigation.navigate("onedaytrip")}
         title="One Day Trip"

@@ -17,16 +17,13 @@ const StackNavigator = () => {
     <BillingContextProvider>
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
+      <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="localTrip" component={LocalTrip} />
-        <Stack.Screen name="Log in" component={Login} />
         <Stack.Screen name="onedaytrip" component={onedaytrip} />
         <Stack.Screen name="Billonedaytrip" component={Billonedaytrip} />
         <Stack.Screen name="Hillstrip" component={Hillstrip} />
-      </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Normaltaxi" component={Normaltaxi} />
-        <Stack.Screen name="Login" component={Login} />
       </Stack.Group>
     </Stack.Navigator>
     </BillingContextProvider>

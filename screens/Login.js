@@ -3,15 +3,16 @@ import { View, Text } from 'react-native'
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import axios from 'axios';
 import Button from '../components/button'
 import Input from '../components/input'
+import { useNavigation } from "@react-navigation/native";
 
 
 
 export default function Login() {
 
-
+  const navigation = useNavigation();
   const LoginSchema = Yup.object().shape({
     username: Yup.string().required('Required'),
     password: Yup.string()
@@ -28,8 +29,23 @@ export default function Login() {
     touched } = useFormik({
       validationSchema: LoginSchema,
       initialValues: { username: '', password: '' },
-      onSubmit: () =>
-        alert("")
+      onSubmit: () => {
+        async function addbill() {
+          try{
+            const response = await axios.post("http://127.0.0.1:8000/api/auth/login", values);
+          if (response) {
+             console.log(response);
+             navigation.navigate("Home")
+          } 
+          }catch(e){
+            console.log(e);
+          }
+      }
+      addbill();
+      
+      }
+      
+      
     });
   return (
     <View

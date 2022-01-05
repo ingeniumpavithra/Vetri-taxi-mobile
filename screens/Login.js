@@ -31,14 +31,23 @@ export default function Login() {
       initialValues: { username: '', password: '' },
       onSubmit: () => {
         async function addbill() {
+         let data = {
+          email : values.username,
+          password : values.password,
+      }
           try{
-            const response = await axios.post("http://127.0.0.1:8000/api/auth/login", values);
-          if (response) {
-             console.log(response);
-             navigation.navigate("Home")
-          } 
+            const response = await axios.post("http://127.0.0.1:8000/api/auth/login", data);
+
+            if(response.data.user.role==="admin"){
+              alert(" Admin cannot access mobile., Please use desktop");
+              navigation.navigate("Login");
+            }else{
+              localStorage.setItem("user",JSON.stringify(response.data));
+              navigation.navigate("Home");
+            }
+          
           }catch(e){
-            console.log(e);
+            alert(" Invalid username or password");
           }
       }
       addbill();

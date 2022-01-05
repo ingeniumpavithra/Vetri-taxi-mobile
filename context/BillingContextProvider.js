@@ -8,7 +8,7 @@ export const BillingContextProvider = (props) => {
     customer_name:'',
     phone_number:'',
     initial_payment:1800,
-    distance_travelled:0,
+    distance_travelled:'',
   });
 
   const handleChangeBilling = (value,name) => {
@@ -16,7 +16,7 @@ export const BillingContextProvider = (props) => {
   } 
 
   useEffect(()=> {
-    console.log(billingData,"billingData");
+   // console.log(billingData,"billingData");
   },[billingData])
     return (
       <BillingContext.Provider value={{

@@ -30,7 +30,7 @@ export default function Login() {
       validationSchema: LoginSchema,
       initialValues: { username: '', password: '' },
       onSubmit: () => {
-        async function addbill() {
+        async function login() {
          let data = {
           email : values.username,
           password : values.password,
@@ -50,7 +50,7 @@ export default function Login() {
             alert(" Invalid username or password");
           }
       }
-      addbill();
+      login();
       
       }
       

@@ -14,7 +14,7 @@ const {
         normalData,
       } = useContext(NormalContext);
   //waiting charge    
-  var values = [20,60];
+
     return (
         <View
                  style={{
@@ -39,13 +39,15 @@ const {
               </Text>
               <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
                   Waiting Charge: 
-                  {parseFloat(values[1])}
+                  {normalData.waiting_chargeamount || 0}
               </Text>
-              <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-                 Driver Beta: 
-                
-                
-              </Text>
+              {normalData.distance_travelled >=300 &&
+                <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+                    Driver Beta: 
+                    {normalData.driver_beta || 0}
+                    
+                </Text>
+                }
               <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
                  Total :
               </Text>

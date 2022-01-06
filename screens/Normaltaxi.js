@@ -1,5 +1,5 @@
 import React,{useState, useContext} from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Picker } from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import { NormalContext } from "../context/NormalContextProvider";
 import Input from '../components/input'
@@ -176,21 +176,21 @@ export default function NormalTrip() {
 
         />
       </View>
-      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
-        <Input
+      <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
-          icon='compass'
-          placeholder='Waiting Hour'
-          autoCapitalize='none'
-          keyboardType={'numeric'}
-          keyboardAppearance='dark'
-          returnKeyType='go'
-          returnKeyLabel='go'
-          value = {normalData.waiting_hour}
-          onChangeText={value => handleChangeBilling(value,'waiting_hour')}
-         
-        />
-      </View>
+                <Picker
+                   value = {normalData.waiting_hour}
+                   onValueChange={value => handleChangeBilling(value,'waiting_hour')}
+
+                >
+                    <Picker.Item label="waiting_hour" value = "0" />
+                    <Picker.Item label="1" value =  "1"/>
+                    <Picker.Item label="2" value =  "2"/>
+                    <Picker.Item label="3" value =  "3"/>
+                    <Picker.Item label="4" value =  "4"/>
+                    <Picker.Item label="5" value =  "5"/>
+                </Picker>
+            </View>
       <Button label='Next'      
        onPress={() => navigation.navigate("Billnormaltrip")
     }/>

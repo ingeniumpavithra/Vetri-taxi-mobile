@@ -4,13 +4,16 @@ export const NormalContext = createContext(null);
 
 export const NormalContextProvider = (props) => {
 
+    const [waitingCharges, setWaitingCharges] = useState([0,60,120,240,320,600]); 
   const [normalData,setNormalData] = useState({
     from:'',
     to:'',
     customer_name:'',
     phone:'',
     distance_travelled:'',
-    waiting_hour:'',
+    waiting_hour:0,
+    waiting_chargeamount:'',
+    driver_beta:0
   });
 
   const handleChangeBilling = (value,name) => {
@@ -18,7 +21,17 @@ export const NormalContextProvider = (props) => {
   } 
 
   useEffect(()=> {
-   // console.log(billingData,"billingData");
+      let value = waitingCharges[normalData.waiting_hour];
+        setNormalData(normalData => ({...normalData,waiting_chargeamount:value}));
+   },[normalData.waiting_hour])
+
+   useEffect(()=>{
+    let value = normalData.distance_travelled >=300?300:0;
+    setNormalData(normalData => ({...normalData,driver_beta:value}));
+   },[normalData.distance_travelled])
+
+  useEffect(()=> {
+   console.log(normalData,"normalData");
   },[normalData])
     return (
       <NormalContext.Provider value={{

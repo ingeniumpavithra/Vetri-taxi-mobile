@@ -4,12 +4,14 @@ export const LocalContext = createContext(null);
 
 export const LocalContextProvider = (props) => {
 
+  const [xtracharge, setXtraCharges] = useState([0,250,500]);
+  const [tripKms, setKms] = useState([0,10,20]);
   const [localData,setLocalData] = useState({
     name:'',
     phone:'',
-    trip_km:'',
-    tripkms:'',
-    xtrakm:'',
+    tripkms:0,
+    triphr:0,
+    xtrakm:0,
 
   });
 
@@ -18,8 +20,13 @@ export const LocalContextProvider = (props) => {
   } 
 
   useEffect(()=> {
-   console.log(localData,"localData");
-  },[localData])
+    let value = xtracharge[localData.triphr];
+    setLocalData(localData => ({...localData,tripCharge:value}));
+    let kms = tripKms[localData.triphr];
+    setLocalData(localData => ({...localData,tripkms:kms}));
+ },[localData.triphr])
+  
+
     return (
       <LocalContext.Provider value={{
         localData,

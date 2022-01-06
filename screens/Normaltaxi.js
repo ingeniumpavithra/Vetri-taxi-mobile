@@ -7,19 +7,7 @@ import Button from '../components/button'
 
 export default function NormalTrip() {
   const [error, setError] = useState('');
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [km, setKm] = useState("");
-  const [hr, setHr] = useState("");
-
-  let result = 12 * km;
-  let w_charge = 0;
-  let d_batta = 0;
-
-  km >= 300 ? d_batta = 300 : d_batta = 0;
-
+  
   const navigation = useNavigation();
   const isValidForm = () => {
     if (!isValidObjField(start, end, name, phone, km, hr))
@@ -50,44 +38,6 @@ export default function NormalTrip() {
     }, 2600);
   }
 
-  function subHandler(e) {
-
-    if (isValidForm()) {
-
-
-      e.preventDefault();
-      let data = {
-        from: start,
-        to: end,
-        cus_name: name,
-        mobile: phone,
-        distance: km,
-        w_hour: hr,
-        w_charge: w_charge,
-        driver_batta: d_batta,
-        total: result
-      }
-      console.log(JSON.stringify(data))
-      // async function addbill(){
-      //     const response = await axios.post("http://127.0.0.1:8000/api/auth/taxi-trip",data);
-      //     if(response){
-      //       alert(response.data.message);
-      //     }else{
-      //       alert("Something went wrong..!");
-      //     }
-      //   }
-      //  addbill();
-
-      setStart("")
-      setEnd("")
-      setName("")
-      setPhone("")
-      setKm("")
-      setHr("")
-
-    }
-
-  }
 
   const {
     normalData,

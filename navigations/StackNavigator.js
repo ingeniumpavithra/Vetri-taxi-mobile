@@ -1,18 +1,26 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet, Text, View } from "react-native";
+
+//--------------Home--------------------
 import Home from "../screens/Home";
+import Login from "../screens/Login";
+//------------Screens-------------------
 import onedaytrip from "../screens/onedaytrip"
 import LocalTrip from "../screens/localTrip";
-import Normaltaxi from "../screens/Normaltaxi"; 
-import Login from "../screens/Login";
+import Normaltaxi from "../screens/Normaltaxi";
+import Hillstrip from "../screens/Hillstrip";
+//-----------Billing screens------------
 import Billonedaytrip from "../screens/Billonedaytrip"
 import Billnormaltrip from "../screens/Billnormaltaxi"
-import Hillstrip from "../screens/Hillstrip";
+import Billhillstrip from "../screens/Billhillstrip"
+import Billlocaltrip from "../screens/Billlocaltrip";
+//----------Context Providers-----------
 import {BillingContextProvider} from "../context/BillingContextProvider";
 import {LocalContextProvider} from "../context/LocalContextProvider";
 import {NormalContextProvider} from "../context/NormalContextProvider";
-import Billlocaltrip from "../screens/Billlocaltrip";
+import {HillsContextProvider} from "../context/HillsContextProvider";
+//--------------------------------------
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
@@ -20,20 +28,22 @@ const StackNavigator = () => {
     <BillingContextProvider>
       <LocalContextProvider>
        <NormalContextProvider>
-       
+       <HillsContextProvider>
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
-      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="localTrip" component={LocalTrip} />
         <Stack.Screen name="onedaytrip" component={onedaytrip} />
         <Stack.Screen name="Billonedaytrip" component={Billonedaytrip} />
         <Stack.Screen name="Billnormaltrip" component={Billnormaltrip} />
+        <Stack.Screen name="Billhillstrip" component={Billhillstrip} />
         <Stack.Screen name="Billlocaltrip" component={Billlocaltrip} />
         <Stack.Screen name="Hillstrip" component={Hillstrip} />
         <Stack.Screen name="Normaltaxi" component={Normaltaxi} />
       </Stack.Group>
     </Stack.Navigator>
+    </HillsContextProvider>
     </NormalContextProvider>
     </LocalContextProvider>
     </BillingContextProvider>

@@ -1,35 +1,24 @@
-import React, { useState } from 'react'
+import React,{ useState, useContext } from 'react'
 import { View, Text, Picker } from 'react-native'
-
-
+import { useNavigation } from "@react-navigation/native";
+import { HillsContext } from "../context/HillsContextProvider";
 import Input from '../components/input'
 import Button from '../components/button'
 
 const Hillstrip = () => {
     const [error, setError] = useState('');
-    const [tripto, setTripto] = useState("");
-    const [tripdays, setTripdays] = useState("");
-    const [name, setName] = useState("");
-    const [payment, setPayment] = useState("");
-    const [phone, setPhone] = useState("");
-    let batta = 0;
-    batta = 300 * tripdays;
-    let result = 0;
-    let pay;
+    const {
+        billingDatas,
+        handleChangeBilling
+      } = useContext(HillsContext);
 
-    function tariffcalc(tripto) {
-        setTripto(tripto)
-        tripto === 'Yercaud' ? pay = 3000 : tripto === 'Kolli Hills' ? pay = 3500 : tripto === 'Kodaikanal' ? pay = 6000 : tripto === 'Ooty' ? pay = 6000 : tripto === 'Palani' ? pay = 3000 : pay = 0
-        setPayment(pay)
-    }
-
-    batta > 0 ? result = payment + batta : result = payment;
+      const navigation = useNavigation();
 
     const isValidForm = () => {
-        if (!isValidObjField( name, phone,  tripto,tripdays))
+        if (!isValidObjField( customer_name, phone,  tripto,tripdays))
           return updateError('Required all fields !', setError);
        
-        if (!name.trim() || name.length < 4)
+        if (!customer_name.trim() || customer_name.length < 4)
           return updateError('Invalid username !', setError);
         if (!phone.trim() || phone.length != 10)
           return updateError('Phone number invalid !', setError);
@@ -44,9 +33,9 @@ const Hillstrip = () => {
     
       }
     
-      const isValidObjField = ( name, phone, tripto,tripdays) => {
+      const isValidObjField = ( name, phone_number, tripto,tripdays) => {
     
-        return  name.trim() && phone.trim && tripto.trim && tripdays.trim
+        return  name.trim() && phone_number.trim && tripto.trim && tripdays.trim
       }
     
       const updateError = (error, stateUpdater) => {
@@ -55,42 +44,6 @@ const Hillstrip = () => {
           stateUpdater('');
         }, 2600);
       }
-
-    function subHandler(e) {
-
-        if (isValidForm()) {
-
-        e.preventDefault();
-        let data = {
-            trip_from: "Tiruchengode",
-            trip_to: tripto,
-            payment: payment,
-            cus_name: name,
-            mobile: phone,
-            members: "4",
-            trip_days: tripdays,
-            driver_batta: batta,
-            total: result
-        }
-        console.log(JSON.stringify(data))
-        // async function addbill() {
-        //     const response = await axios.post("http://127.0.0.1:8000/api/auth/hills-trip", data);
-        //     if (response) {
-        //         alert(response.data.message);
-        //     } else {
-        //         alert("Something went wrong..!");
-        //     }
-        // }
-        // addbill();
-
-        setTripto("")
-        setName("")
-        setPayment("")
-        setPhone("")
-        setTripdays("")
-    }}
-
-    const [place, setPlace] = useState("Thiruchengode")
 
     return (
         <View
@@ -115,10 +68,8 @@ const Hillstrip = () => {
                     keyboardAppearance='dark'
                     returnKeyType='next'
                     returnKeyLabel='next'
-                    onChangeText={setName}
-
-
-                    value={name}
+                    value = {billingDatas.customer_name}
+                    onChangeText={value => handleChangeBilling(value,'customer_name')}
 
                 />
             </View>
@@ -128,13 +79,13 @@ const Hillstrip = () => {
                     placeholder='Phone number'
                     autoCapitalize='none'
                     autoCompleteType='username'
-                    keyboardType='default'
+                    keyboardType='numeric'
                     keyboardAppearance='dark'
                     returnKeyType='next'
                     returnKeyLabel='next'
-                    onChangeText={setPhone}
-                    pattern="^\d{10}$"
-                    value={phone}
+                    onChangeText={value => handleChangeBilling(value,'phone_number')}                    pattern="^\d{10}$"
+                    value = {billingDatas.phone_number}
+          
 
                 />
             </View>
@@ -142,8 +93,7 @@ const Hillstrip = () => {
             <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
                 <Picker
-                    selectedValue={place}
-                    onValueChange={setPlace}
+                    onValueChange={value => handleChangeBilling(value,'tripfrom')} 
 
                 >
                     <Picker.Item label="Tiruchengode" value="Tiruchengode" />
@@ -153,9 +103,7 @@ const Hillstrip = () => {
             <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
                 <Picker
-                    selectedValue={tripto}
-                    onValueChange={setTripto,tariffcalc}
-
+                    onValueChange={(value, itemIndex) => handleChangeBilling(value,'tripto')}
                 >
                     <Picker.Item label="Trip To" value="" />
                     <Picker.Item label="Yercaud" value="Yercaud" />
@@ -178,16 +126,15 @@ const Hillstrip = () => {
                     keyboardAppearance='dark'
                     returnKeyType='next'
                     returnKeyLabel='next'
-                    onChangeText={setTripdays}
-
-                    value={tripdays}
+                    value = {billingDatas.trip_days}
+                    onChangeText={value => handleChangeBilling(value,'trip_days')}
                 />
             </View>
             <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
                 <Picker
-                    selectedValue={place}
-                    onValueChange={4}
+                    selectedValue="members"
+                    onValueChange={value => handleChangeBilling(value,'members')}
 
                 >
                     <Picker.Item label="4" value="4" />
@@ -195,7 +142,7 @@ const Hillstrip = () => {
 
                 </Picker>
             </View>
-            <Button label='Next' onPress={subHandler} />
+            <Button label='Next' onPress={() => navigation.navigate("Billhillstrip")} />
 
         </View>
     )

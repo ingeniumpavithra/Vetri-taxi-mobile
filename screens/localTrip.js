@@ -8,27 +8,7 @@ import { LocalContext } from "../context/LocalContextProvider";
 export default function LocalTrip() {
   const [error, setError] = useState('');
   
-  const [triphr, setTriphr] = useState("");
-  const [tripkms, setTripkms] = useState("");
-  const [name, setName] = useState("");
-  const [payment, setPayment] = useState("");
-  const [phone, setPhone] = useState("");
-  const [xtrakm, setXtrakm] = useState(0);
-  let xtracharge = 0;
-  xtracharge = 12 * xtrakm;
-  let result = 0;
-  let km = 0;
-  let pay; 
-  function setkm(triphr) {
-    triphr === '1' ? km = 10 : triphr === '2' ? km = 20 : km = 0
-    setTripkms(km)
-    if (km >= 0) {
-        km === 10 ? pay = 250 : km === 20 ? pay = 500 : pay = 0
-        setPayment(pay)
-    }
-}
-xtracharge > 0 ? result = payment + xtracharge : result = payment;
-
+ 
 const isValidForm = () => {
   if (!isValidObjField(name, phone))
   return updateError('Required all fields !', setError);
@@ -51,38 +31,6 @@ const updateError = (error, stateUpdater) => {
   }, 2600);
 }
 
-function subHandler(e) {
-  if (isValidForm()) {
-  e.preventDefault();
-  let data = {
-      triphr: triphr,
-      tripkms: tripkms,
-      payment: payment,
-      cus_name: name,
-      mobile: phone,
-      xtrakm: xtrakm,
-      xtracharge: xtracharge,
-      total: result
-  }
-  console.log(JSON.stringify(data))
-  // async function addbill() {
-  //     const response = await axios.post("http://127.0.0.1:8000/api/auth/local-trip", data);
-  //     if (response) {
-  //         alert(response.data.message);
-  //     } else {
-  //         alert("Something went wrong..!");
-  //     }
-  // }
-  //addbill();
-
-  setTriphr("")
-  setName("")
-  setPayment("")
-  setPhone("")
-  setXtrakm("")
-  setTripkms("")
-}
-}
 
 const {
   localData,
@@ -114,7 +62,7 @@ const navigation = useNavigation();
           returnKeyType='next'
           returnKeyLabel='next'
           value = {localData.name}
-          onChangeText={value => handleChangeBilling(value,'setName')}
+          onChangeText={value => handleChangeBilling(value,'name')}
          
         />
       </View>
@@ -128,15 +76,15 @@ const navigation = useNavigation();
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          value = {phone}
-          onChangeText={value => handleChangeBilling(value,'setPhone')}
+          value = {localData.phone}
+          onChangeText={value => handleChangeBilling(value,'phone')}
         />
       </View>
       <View style={{ paddingHorizontal: 32,paddingVertical:0, marginBottom: 16,   width: '85%',borderWidth: 0.3,borderRadius:8}}>
 
      <Picker
-    selectedValue = {triphr}
-    onValueChange={(itemValue) =>[ setTriphr(itemValue), setkm(itemValue)]}
+    selectedValue = {localData.triphr}
+    onValueChange={value => handleChangeBilling(value,'triphr')}
    >
          <Picker.Item label="Trip Hour" value="0" />
         <Picker.Item label="1" value="1" />
@@ -154,7 +102,7 @@ const navigation = useNavigation();
           returnKeyType='next'
           returnKeyLabel='next'
           disabled
-          value = {tripkms}
+          value = {localData.tripkms}
            onChangeText={value => handleChangeBilling(value,'tripkms')}
         />
       </View>
@@ -171,7 +119,7 @@ const navigation = useNavigation();
           returnKeyType='next'
           returnKeyLabel='next'
           value = {localData.xtrakm}
-           onChangeText={value => handleChangeBilling(value,'setXtrakm')} 
+           onChangeText={value => handleChangeBilling(value,'xtrakm')} 
         />
       </View>
       <Button  label='Next'

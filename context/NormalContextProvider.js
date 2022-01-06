@@ -30,9 +30,6 @@ export const NormalContextProvider = (props) => {
     setNormalData(normalData => ({...normalData,driver_beta:value}));
    },[normalData.distance_travelled])
 
-  useEffect(()=> {
-   console.log(normalData,"normalData");
-  },[normalData])
     return (
       <NormalContext.Provider value={{
         normalData,

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React,{useState, useContext} from 'react'
 import { View, Text } from 'react-native'
-
+import { useNavigation } from "@react-navigation/native";
+import { NormalContext } from "../context/NormalContextProvider";
 import Input from '../components/input'
 import Button from '../components/button'
 
-export default function LocalTrip() {
+export default function NormalTrip() {
   const [error, setError] = useState('');
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -19,7 +20,7 @@ export default function LocalTrip() {
 
   km >= 300 ? d_batta = 300 : d_batta = 0;
 
-
+  const navigation = useNavigation();
   const isValidForm = () => {
     if (!isValidObjField(start, end, name, phone, km, hr))
       return updateError('Required all fields !', setError);
@@ -88,7 +89,10 @@ export default function LocalTrip() {
 
   }
 
-
+  const {
+    normalData,
+    handleChangeBilling
+  } = useContext(NormalContext);
   return (
     <View
       style={{
@@ -107,15 +111,12 @@ export default function LocalTrip() {
           icon='arrow-left'
           placeholder='From'
           autoCapitalize='none'
-          autoCompleteType='From'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={setStart}
-         
-          value={start}
-
+          value = {normalData.from}
+          onChangeText={value => handleChangeBilling(value,'from')}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -123,15 +124,12 @@ export default function LocalTrip() {
           icon='arrow-right'
           placeholder='To'
           autoCapitalize='none'
-          autoCompleteType='To'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={setEnd}
-         
-          value={end}
-
+          value = {normalData.to}
+          onChangeText={value => handleChangeBilling(value,'to')}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -139,15 +137,12 @@ export default function LocalTrip() {
           icon='user'
           placeholder='Customer Name'
           autoCapitalize='none'
-          autoCompleteType='customername'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={setName}
-        
-          value={name}
-
+          value = {normalData.customer_name}
+          onChangeText={value => handleChangeBilling(value,'customer_name')}
         />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -155,15 +150,12 @@ export default function LocalTrip() {
           icon='phone'
           placeholder='phone number'
           autoCapitalize='none'
-          autoCompleteType='tel'
           keyboardType={'numeric'}
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-         
-          onChangeText={setPhone}
-          
-          value={phone}
+          value = {normalData.phone}
+          onChangeText={value => handleChangeBilling(value,'phone')}
 
         />
 
@@ -175,14 +167,12 @@ export default function LocalTrip() {
           icon='gauge'
           placeholder='Distance Travelled'
           autoCapitalize='none'
-          autoCompleteType='none'
           keyboardType={'numeric'}
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
-          onChangeText={setKm}
-         
-          value={km}
+          value = {normalData.distance_travelled}
+          onChangeText={value => handleChangeBilling(value,'distance_travelled')}
 
         />
       </View>
@@ -190,20 +180,20 @@ export default function LocalTrip() {
         <Input
 
           icon='compass'
-          placeholder='Waiting Charge'
+          placeholder='Waiting Hour'
           autoCapitalize='none'
-          autoCompleteType='none'
           keyboardType={'numeric'}
           keyboardAppearance='dark'
           returnKeyType='go'
           returnKeyLabel='go'
-          onChangeText={setHr}
-          
-          value={hr}
+          value = {normalData.waiting_hour}
+          onChangeText={value => handleChangeBilling(value,'waiting_hour')}
          
         />
       </View>
-      <Button label='Next' onPress={subHandler} />
+      <Button label='Next'      
+       onPress={() => navigation.navigate("Billnormaltrip")
+    }/>
 
     </View>
   )

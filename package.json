@@ -23,6 +23,7 @@
     "react-native-material-design": "^0.3.7",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-textinput-with-icons": "^1.0.18",
     "react-native-web": "0.17.1",
     "yup": "^0.32.11"

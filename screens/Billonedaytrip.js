@@ -21,15 +21,34 @@ const Billonedaytrip = () => {
   const {
     billingData,
   } = useContext(BillingContext);
+  
+  if(billingData.discount===''){
+    billingData.discount=0;
+  }
+  if(billingData.tolls===''){
+    billingData.tolls=0;
+  }
+  if(billingData.extra_amt===''){
+    billingData.extra_amt=0;
+  }
 
-  const totalPrice = billingData.initial_payment + (billingData.distance_travelled * 7);
+ 
+    let totalPrice = billingData.initial_payment + (billingData.distance_travelled * 7);
+    let calc = 0;
+    billingData.discount  >0 ? calc = (parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt))-parseFloat(billingData.discount) : calc = parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt);
+      const result = totalPrice + calc;
 
   let data = {
     car_id : car_id,
     cus_name: billingData.customer_name,
     mobile: billingData.phone_number,
     distance: billingData.distance_travelled,
+    tolls: billingData.tolls,
+    extra: billingData.extra,
+    extra_amt: billingData.extra_amt,
+    discount: billingData.discount,
     total: totalPrice
+   
   }
 
   async function addBill() {
@@ -67,17 +86,26 @@ const Billonedaytrip = () => {
           Price / km :  
          {7 || 0}
       </Text>
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-          Travelled (kms):  
-          {billingData.distance_travelled || 0}
-      </Text>
+      
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Total KM Price: 
           {billingData.distance_travelled * 7 || 0}
       </Text>
+      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Toll Price: 
+          {billingData.tolls|| 0}
+      </Text>
+      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Extra Amount: 
+          {billingData.extra_amt  || 0}
+      </Text>
+      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          Discount :
+           {billingData.discount || 0}
+      </Text>
       <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
          Total :
-         {billingData.initial_payment + billingData.distance_travelled * 7}
+         {result }
       </Text>
      
       </Card>

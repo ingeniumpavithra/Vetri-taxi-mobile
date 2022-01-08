@@ -99,7 +99,7 @@ export default function onedaytrip() {
           returnKeyType='next'
           returnKeyLabel='next'
           value = {billingData.extra}
-          keyboardType = 'numeric'
+          keyboardType = 'default'
           onChangeText={value => handleChangeBilling(value,'extra')}
         />
       </View>

@@ -66,7 +66,7 @@ export default function onedaytrip() {
        <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
         <Input
           icon='gauge'
-          placeholder='Distance Travelled'
+          placeholder='KM Travelled'
           autoCapitalize='none'
           keyboardAppearance='dark'
           returnKeyType='next'
@@ -76,7 +76,59 @@ export default function onedaytrip() {
           onChangeText={value => handleChangeBilling(value,'distance_travelled')}
         />
       </View>
-      
+    
+       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='signal'
+          placeholder='Toll/Parking'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {billingData.tolls}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'tolls')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='home'
+          placeholder='Extra'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {billingData.extra}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'extra')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='briefcase'
+          placeholder='Extra Amount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {billingData.extra_amt}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'extra_amt')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='shield'
+          placeholder='Discount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {billingData.discount}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'discount')}
+        />
+      </View>
      
       <Button  label='Next'
        onPress={() => navigation.navigate("Billonedaytrip")}

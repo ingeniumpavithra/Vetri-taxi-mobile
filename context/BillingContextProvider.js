@@ -9,6 +9,10 @@ export const BillingContextProvider = (props) => {
     phone_number:'',
     initial_payment:1800,
     distance_travelled:'',
+    tolls:'',
+    extra:'',
+    extra_amt:'',
+    discount:'',
   });
 
   const handleChangeBilling = (value,name) => {

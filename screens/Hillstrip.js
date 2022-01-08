@@ -15,27 +15,28 @@ const Hillstrip = () => {
       const navigation = useNavigation();
 
     const isValidForm = () => {
-        if (!isValidObjField( customer_name, phone,  tripto,tripdays))
+        // 
+        if (!isValidObjField( billingDatas.customer_name, billingDatas.phone_number, billingDatas.tripto,billingDatas.trip_days ))
           return updateError('Required all fields !', setError);
        
-        if (!customer_name.trim() || customer_name.length < 4)
+        if (!billingDatas.customer_name.trim() || billingDatas.customer_name.length < 4)
           return updateError('Invalid username !', setError);
-        if (!phone.trim() || phone.length != 10)
+        if (!billingDatas.phone_number.trim() || billingDatas.phone_number.length != 10)
           return updateError('Phone number invalid !', setError);
        
-        if (!tripto.trim())
+        if (!billingDatas.tripto)
           return updateError('Select trip to !', setError);
        
-        if (!tripdays.trim() || tripdays.length > 30)
-          return updateError('Trip days too long !', setError);
+        if (!billingDatas.trip_days )
+          return updateError('Enter Trip days!', setError);
        
         return true
     
       }
     
-      const isValidObjField = ( name, phone_number, tripto,tripdays) => {
+      const isValidObjField = ( name, phone_number) => {
     
-        return  name.trim() && phone_number.trim && tripto.trim && tripdays.trim
+        return  name.trim() && phone_number.trim
       }
     
       const updateError = (error, stateUpdater) => {
@@ -93,6 +94,7 @@ const Hillstrip = () => {
             <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
                 <Picker
+                     value = {billingDatas.tripfrom}
                     onValueChange={value => handleChangeBilling(value,'tripfrom')} 
 
                 >
@@ -103,7 +105,8 @@ const Hillstrip = () => {
             <View style={{ paddingHorizontal: 32, paddingVertical: 0, marginBottom: 16, width: '85%', borderWidth: 0.3, borderRadius: 8 }}>
 
                 <Picker
-                    onValueChange={(value, itemIndex) => handleChangeBilling(value,'tripto')}
+                 value = {billingDatas.tripto}
+                    onValueChange={(value) => handleChangeBilling(value,'tripto')}
                 >
                     <Picker.Item label="Trip To" value="" />
                     <Picker.Item label="Yercaud" value="Yercaud" />
@@ -142,7 +145,10 @@ const Hillstrip = () => {
 
                 </Picker>
             </View>
-            <Button label='Next' onPress={() => navigation.navigate("Billhillstrip")} />
+            <Button label='Next' onPress={() =>  { if(isValidForm()){
+                navigation.navigate("Billhillstrip")
+       }
+        }} />
 
         </View>
     )

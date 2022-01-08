@@ -10,11 +10,11 @@ export default function LocalTrip() {
   
  
 const isValidForm = () => {
-  if (!isValidObjField(name, phone))
+  if (!isValidObjField(localData.name, localData.phone,localData.xtrakm))
   return updateError('Required all fields !', setError);
-    if (!name.trim() || name.length < 4)
+    if (!localData.name.trim() || localData.name.length < 3)
     return updateError('Invalid username !', setError);
-  if (!phone.trim() || phone.length != 10  )
+  if (!localData.phone.trim() || localData.phone.length != 10  )
     return updateError('Phone number invalid !', setError);
   return true
 
@@ -22,7 +22,7 @@ const isValidForm = () => {
 
 const isValidObjField = (name, phone) => {
 
-  return name.trim() && phone.trim 
+  return name.trim() && phone.trim()
 }
 const updateError = (error, stateUpdater) => {
   stateUpdater(error);
@@ -61,6 +61,7 @@ const navigation = useNavigation();
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
+         
           value = {localData.name}
           onChangeText={value => handleChangeBilling(value,'name')}
          
@@ -113,7 +114,7 @@ const navigation = useNavigation();
           icon='arrow-with-circle-up'
           placeholder='Extra Kms'
           autoCapitalize='none'
-          autoCompleteType='username'
+          autoCompleteType='none'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
@@ -123,7 +124,10 @@ const navigation = useNavigation();
         />
       </View>
       <Button  label='Next'
-       onPress={() => navigation.navigate("Billlocaltrip")}
+       onPress={() => { if(isValidForm()){
+        navigation.navigate("Billlocaltrip")
+       }
+        }}
       />
     </View>
   )

@@ -10,17 +10,17 @@ export default function NormalTrip() {
   
   const navigation = useNavigation();
   const isValidForm = () => {
-    if (!isValidObjField(start, end, name, phone, km, hr))
+    if (!isValidObjField(normalData.from, normalData.to, normalData.customer_name, normalData.phone, normalData.distance_travelled, normalData.waiting_hour))
       return updateError('Required all fields !', setError);
-    if (!start.trim() || start.length < 4)
+    if (!normalData.from.trim() || normalData.from.length < 4)
       return updateError('Invalid start place !', setError);
-    if (!end.trim() || end.length < 4)
+    if (!normalData.to.trim() || normalData.to.length < 4)
       return updateError('Invalid end place !', setError);
-    if (!name.trim() || name.length < 4)
+    if (!normalData.customer_name.trim() || normalData.customer_name.length < 4)
       return updateError('Invalid username !', setError);
-    if (!phone.trim() || phone.length != 10)
+    if (!normalData.phone.trim() || normalData.phone.length != 10)
       return updateError('Phone number invalid!', setError);
-    if (!km.trim())
+    if (!normalData.distance_travelled.trim())
       return updateError('km required !', setError);
     return true
 
@@ -142,7 +142,11 @@ export default function NormalTrip() {
                 </Picker>
             </View>
       <Button label='Next'      
-       onPress={() => navigation.navigate("Billnormaltrip")
+       onPress={() => { if(isValidForm()){
+        navigation.navigate("Billnormaltrip")
+       }
+        }
+         
     }/>
 
     </View>

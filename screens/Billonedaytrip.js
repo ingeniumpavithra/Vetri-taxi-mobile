@@ -47,7 +47,10 @@ const Billonedaytrip = () => {
     extra: billingData.extra,
     extra_amt: billingData.extra_amt,
     discount: billingData.discount,
-    total: totalPrice
+      xtra_desc: billingData.extra,
+      xtracharge: billingData.extra_amt,
+      tollcharge: billingData.tolls,
+    total: result
    
   }
 
@@ -91,18 +94,33 @@ const Billonedaytrip = () => {
          Total KM Price: 
           {billingData.distance_travelled * 7 || 0}
       </Text>
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-         Toll Price: 
-          {billingData.tolls|| 0}
-      </Text>
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+      
+      { billingData.extra_amt >0 ? ( <>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Extra Amount: 
-          {billingData.extra_amt  || 0}
+          {billingData.extra_amt}
       </Text>
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+              </>):(<></>) }
+      { billingData.tolls >0 ? ( <>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Toll Price: 
+          {billingData.tolls}
+      </Text>
+          </>):(<></>) }
+      { billingData.discount >0 ? ( <>
+            
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          <b>Subtotal :
+          {totalPrice + parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt)}</b>
+      </Text>
+          
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           Discount :
-           {billingData.discount || 0}
+           {billingData.discount}
       </Text>
+          </>):(<></>) }
+      
+      
       <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
          Total :
          {result }

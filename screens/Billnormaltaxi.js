@@ -35,7 +35,6 @@ const {
       }
      
       let totalPrice = normalData.distance_travelled * 12;
-      console.log( totalPrice)
       let result = 0;
       normalData.distance_travelled >= 300 ? result = result + normalData.driver_beta + normalData.waiting_chargeamount : result = result + normalData.waiting_chargeamount
       let calc = 0;

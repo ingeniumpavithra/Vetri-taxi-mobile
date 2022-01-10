@@ -1,5 +1,5 @@
 import React,{ useState, useContext } from 'react'
-import { View, Text, Picker } from 'react-native'
+import { View, Text, Picker,ScrollView } from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import { HillsContext } from "../context/HillsContextProvider";
 import Input from '../components/input'
@@ -47,6 +47,7 @@ const Hillstrip = () => {
       }
 
     return (
+      <ScrollView>
         <View
             style={{
                 flex: 1,
@@ -144,13 +145,68 @@ const Hillstrip = () => {
 
 
                 </Picker>
+                
             </View>
+            <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='signal'
+          placeholder='Toll/Parking'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {billingDatas.tolls}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'tolls')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='home'
+          placeholder='Extra'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {billingDatas.extra}
+          keyboardType = 'default'
+          onChangeText={value => handleChangeBilling(value,'extra')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='briefcase'
+          placeholder='Extra Amount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {billingDatas.extra_amt}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'extra_amt')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='shield'
+          placeholder='Discount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {billingDatas.discount}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'discount')}
+        />
+      </View>
+     
             <Button label='Next' onPress={() =>  { if(isValidForm()){
                 navigation.navigate("Billhillstrip")
        }
         }} />
 
         </View>
+        </ScrollView>
     )
 }
 

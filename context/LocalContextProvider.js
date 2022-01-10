@@ -12,6 +12,10 @@ export const LocalContextProvider = (props) => {
     tripkms:0,
     triphr:0,
     xtrakm:0,
+    tolls:'',
+    extra:'',
+    extra_amt:'',
+    discount:''
 
   });
 

@@ -22,14 +22,28 @@ const Billhillstrip = () => {
     billingDatas,
   } = useContext(HillsContext);
 
-  const batta = billingDatas.trip_days * 300;
-  let pay, result = 0;
+  if(billingDatas.discount===''){
+    billingDatas.discount=0;
+  }
+  if(billingDatas.tolls===''){
+    billingDatas.tolls=0;
+  }
+  if(billingDatas.extra_amt===''){
+    billingDatas.extra_amt=0;
+  }
+
+  let batta =
+   billingDatas.trip_days * 300;
+  let pay= 0;
 
   if(billingDatas.tripto){
     billingDatas.tripto==='Yercaud'? pay=3000 :billingDatas.tripto==='Kolli Hills'? pay=3500 :billingDatas.tripto==='Kodaikanal'? pay=6000 :billingDatas.tripto==='Ooty'? pay=6000 :billingDatas.tripto==='Palani'? pay=3000 : pay=0
     }
-
-    batta>0 ? result = pay + batta : result = pay;
+    let calc = 0;
+    
+    billingDatas.discount  >0 ? calc = (parseFloat(billingDatas.tolls) + parseFloat(billingDatas.extra_amt))-parseFloat(billingDatas.discount) : calc = parseFloat(billingDatas.tolls) + parseFloat(billingDatas.extra_amt);
+      
+    const result = pay + calc + batta;
 
   let data = {
     car_id: car_id,
@@ -90,9 +104,20 @@ const Billhillstrip = () => {
           {batta || 0}
       </Text>
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-         Total : 
-          {result || 0}
-      </Text>
+              Toll Price: 
+             {billingDatas.tolls|| 0}
+         </Text>
+         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          Extra Amount: 
+          {billingDatas.extra_amt  || 0}
+         </Text>
+         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          Discount :
+           {billingDatas.discount || 0}
+          </Text>
+          <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
+                 Total : { result }
+              </Text>
       
       </Card>
       </View>

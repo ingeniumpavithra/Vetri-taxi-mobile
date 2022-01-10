@@ -1,5 +1,5 @@
 import React,{useState, useContext} from 'react'
-import { View, Text ,Picker} from 'react-native'
+import { View, Text ,Picker, ScrollView} from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
@@ -39,6 +39,7 @@ const {
 const navigation = useNavigation();
   
   return (
+    <ScrollView>
     <View
       style={{
         flex: 1,
@@ -46,7 +47,7 @@ const navigation = useNavigation();
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-
+       
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
         Local Trip
       </Text>
@@ -123,12 +124,67 @@ const navigation = useNavigation();
            onChangeText={value => handleChangeBilling(value,'xtrakm')} 
         />
       </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='signal'
+          placeholder='Toll/Parking'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {localData.tolls}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'tolls')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='home'
+          placeholder='Extra'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {localData.extra}
+          keyboardType = 'default'
+          onChangeText={value => handleChangeBilling(value,'extra')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='briefcase'
+          placeholder='Extra Amount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {localData.extra_amt}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'extra_amt')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='shield'
+          placeholder='Discount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {localData.discount}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'discount')}
+        />
+      </View>
+     
       <Button  label='Next'
        onPress={() => { if(isValidForm()){
         navigation.navigate("Billlocaltrip")
        }
         }}
       />
+     
     </View>
+    </ScrollView>
   )
 }

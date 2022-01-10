@@ -36,10 +36,10 @@ const {
      
       let totalPrice = normalData.distance_travelled * 12;
       let result = 0;
-      normalData.distance_travelled >= 300 ? result = result + normalData.driver_beta + normalData.waiting_chargeamount : result = result + normalData.waiting_chargeamount
+      normalData.distance_travelled >= 300 ? result = totalPrice + normalData.driver_beta + normalData.waiting_chargeamount : result = totalPrice + normalData.waiting_chargeamount
       let calc = 0;
       normalData.discount  >0 ? calc = (parseFloat(normalData.tolls) + parseFloat(normalData.extra_amt))-parseFloat(normalData.discount) : calc = parseFloat(normalData.tolls) + parseFloat(normalData.extra_amt);
-      let value = totalPrice + calc + result;
+      let value = result + calc;
 
       let data = {
         car_id: car_id,
@@ -51,8 +51,13 @@ const {
         w_hour: normalData.waiting_hour,
         w_charge: normalData.waiting_chargeamount,
         driver_batta: normalData.driver_beta,
-        total: result,
-        value: value
+
+        discount: normalData.discount,
+        xtra_desc: normalData.extra,
+        xtracharge: normalData.extra_amt,
+        tollcharge: normalData.tolls,
+        
+        total: value,
       }
 
       async function addBill() {
@@ -101,18 +106,30 @@ const {
                     {normalData.driver_beta || 0}  
                 </Text>
                 }
-             <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-            Toll Price: 
-              {normalData.tolls|| 0}
-          </Text>
+            { normalData.extra_amt >0 ? ( <>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Extra Amount: 
+          {normalData.extra_amt}
+      </Text>
+              </>):(<></>) }
+      { normalData.tolls >0 ? ( <>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Toll Price: 
+          {normalData.tolls}
+      </Text>
+          </>):(<></>) }
+      { normalData.discount >0 ? ( <>
+            
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-            Extra Amount: 
-              {normalData.extra_amt  || 0}
-          </Text>
+          <b>Subtotal :
+          {result + parseFloat(normalData.tolls) + parseFloat(normalData.extra_amt)}</b>
+      </Text>
+          
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-              Discount :
-              {normalData.discount || 0}
-          </Text>
+          Discount :
+           {normalData.discount}
+      </Text>
+          </>):(<></>) }
               <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
                  Total : {value}
               </Text>

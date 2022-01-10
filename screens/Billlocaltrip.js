@@ -31,17 +31,15 @@ const Billlocaltrip = () => {
       }
       if(localData.extra_amt===''){
         localData.extra_amt=0;
-      }
-    
+      }    
      
-      let xtracharge = localData.xtrakm * 12;
+      let xtrakmcharge = localData.xtrakm * 12;
       let result = 0;
-      xtracharge > 0 ? result = localData.tripCharge + xtracharge : result = localData.tripCharge;
+      xtrakmcharge > 0 ? result = localData.tripCharge + xtrakmcharge : result = localData.tripCharge;
       
       let calc = 0;
-      console.log("working")
       localData.discount  >0 ? calc = (parseFloat(localData.tolls) + parseFloat(localData.extra_amt))-parseFloat(localData.discount) : calc = parseFloat(localData.tolls) + parseFloat(localData.extra_amt);
-      let value = xtracharge + calc + result;
+      let value = calc + result;
 
       let data = {
         car_id: car_id,
@@ -51,9 +49,13 @@ const Billlocaltrip = () => {
         cus_name: localData.name,
         mobile: localData.phone,
         xtrakm: localData.xtrakm,
-        xtracharge: xtracharge,
-        total: result,
-        value: value,
+        xtrakmcharge: xtrakmcharge,
+
+        discount: localData.discount,
+        xtra_desc: localData.extra,
+        xtracharge: localData.extra_amt,
+        tollcharge: localData.tolls,
+        total: value,
     }
 
       async function addBill() {
@@ -103,23 +105,34 @@ const Billlocaltrip = () => {
               
                 <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
                    Extra kms charge : 
-                   
                    {localData.xtrakm * 12 || 0}
                 </Text>
-                <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-              Toll Price: 
-             {localData.tolls|| 0}
-         </Text>
-         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-          Extra Amount: 
-          {localData.extra_amt  || 0}
-         </Text>
-         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+       { localData.extra_amt >0 ? ( <>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Extra Amount: 
+          {localData.extra_amt}
+      </Text>
+              </>):(<></>) }
+      { localData.tolls >0 ? ( <>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Toll Price: 
+          {localData.tolls}
+      </Text>
+          </>):(<></>) }
+      { localData.discount >0 ? ( <>
+            
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          <b>Subtotal :
+          {result + parseFloat(localData.tolls) + parseFloat(localData.extra_amt)}</b>
+      </Text>
+          
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           Discount :
-           {localData.discount || 0}
-          </Text>
+           {localData.discount}
+      </Text>
+          </>):(<></>) }
               <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
-                 Total : { result }
+                 Total : { value }
               </Text>
              
               </Card>

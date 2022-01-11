@@ -5,19 +5,16 @@ import axios from 'axios';
 import { useNavigation } from "@react-navigation/native";
 import Button from '../components/button'
 import { LocalContext } from "../context/LocalContextProvider";
-import authHeader from "../assets/header/auth-header";
+import { AuthContext } from "../context/AuthContextProvider";
 
 
 const Billlocaltrip = () => {   
-  let car_id;
-  if(localStorage.length){
-      const user_val = localStorage.getItem('user');
-      const user = JSON.parse(user_val);
-      car_id = user.user.id; 
-  }
 
     //useNavigation   
     const navigation = useNavigation();
+    const {
+      AuthData,
+    } = useContext(AuthContext);
     const {
         localData,
         handleChangeBilling
@@ -42,7 +39,7 @@ const Billlocaltrip = () => {
       let value = calc + result;
 
       let data = {
-        car_id: car_id,
+        car_id : AuthData.car_id,
         triphr: localData.triphr,
         tripkms: localData.tripkms,
         payment: localData.tripCharge,
@@ -61,7 +58,7 @@ const Billlocaltrip = () => {
       async function addBill() {
         console.log(data);
         try{
-          const response = await axios.post("http://127.0.0.1:8000/api/auth/local-trip", data, { headers: authHeader() });
+          const response = await axios.post("http://127.0.0.1:8000/api/auth/local-trip", data);
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");

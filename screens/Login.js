@@ -1,8 +1,7 @@
 import React from 'react'
-import { View, Text,AsyncStorage  } from 'react-native'
-
-
+import { View, Text  } from 'react-native'
 import { useFormik } from 'formik';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Button from '../components/button'
@@ -43,12 +42,17 @@ export default function Login() {
               alert(" Admin cannot access mobile., Please use desktop");
               navigation.navigate("Login");
             }else{
-              localStorage.setItem("user",JSON.stringify(response.data));
+              alert("Login Sucess");
               navigation.navigate("Home");
+              AsyncStorage.setItem(
+                "user",
+                JSON.stringify(response.data)
+               ).then(() => console.log("userID save"));
             }
           
           }catch(e){
             alert(" Invalid username or password");
+            console.log(e);
           }
       }
       login();

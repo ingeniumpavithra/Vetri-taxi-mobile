@@ -3,20 +3,16 @@ import { StyleSheet, Text, View,} from "react-native"
 import Card from '../components/CalCard'
 import axios from 'axios';
 import Button from '../components/button'
-import authHeader from "../assets/header/auth-header";
+import { AuthContext } from "../context/AuthContextProvider";
 import {HillsContext} from "../context/HillsContextProvider";
 import { useNavigation } from "@react-navigation/native";
 
   
 const Billhillstrip = () => {   
   const navigation = useNavigation();
-
-  let car_id;
-  if(localStorage.length){
-      const user_val = localStorage.getItem('user');
-      const user = JSON.parse(user_val);
-      car_id = user.user.id; 
-  }
+  const {
+    AuthData,
+  } = useContext(AuthContext);
 
   const {
     billingDatas,
@@ -46,7 +42,7 @@ const Billhillstrip = () => {
     let value = result + calc;
 
   let data = {
-    car_id: car_id,
+    car_id : AuthData.car_id,
     trip_from: billingDatas.tripfrom,
     trip_to: billingDatas.tripto,
     payment: pay,
@@ -66,7 +62,7 @@ const Billhillstrip = () => {
    async function addBill() {
     
     try{
-        const response = await axios.post("http://127.0.0.1:8000/api/auth/hills-trip",data, { headers: authHeader() });
+        const response = await axios.post("http://127.0.0.1:8000/api/auth/hills-trip",data);
         if(response){
           alert(response.data.message);
           navigation.navigate("Home");

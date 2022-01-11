@@ -5,21 +5,16 @@ import Card from '../components/CalCard'
 import { useNavigation } from "@react-navigation/native";
 import Button from '../components/button'
 import {NormalContext} from "../context/NormalContextProvider";
-import authHeader from "../assets/header/auth-header";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const Billnormaltrip = () => {  
-  
-  let car_id;
-  if(localStorage.length){
-      const user_val = localStorage.getItem('user');
-      const user = JSON.parse(user_val);
-      car_id = user.user.id; 
-  }
-
 
 //useNavigation   
     const navigation = useNavigation();
  //contextprovider   
+ const {
+  AuthData,
+} = useContext(AuthContext);
 const {
         normalData,
       } = useContext(NormalContext);
@@ -42,7 +37,7 @@ const {
       let value = result + calc;
 
       let data = {
-        car_id: car_id,
+        car_id : AuthData.car_id,
         from: normalData.from,
         to: normalData.to,
         cus_name: normalData.customer_name,
@@ -63,7 +58,7 @@ const {
       async function addBill() {
         console.log(data);
         try{
-            const response = await axios.post("http://127.0.0.1:8000/api/auth/taxi-trip",data, { headers: authHeader() });
+            const response = await axios.post("http://127.0.0.1:8000/api/auth/taxi-trip",data);
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");

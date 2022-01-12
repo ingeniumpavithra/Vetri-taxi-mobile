@@ -11,8 +11,18 @@ import { useNavigation } from "@react-navigation/native";
 
 
 export default function Login() {
+  
 
-  const navigation = useNavigation();
+  const navigation = useNavigation(
+    {
+    navigationOptions: {
+      header: {
+        visible: false,
+      }
+    }
+  }
+  );
+  
   const LoginSchema = Yup.object().shape({
     username: Yup.string().required('Required'),
     password: Yup.string()

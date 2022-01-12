@@ -2,10 +2,23 @@ import React,{ useState, useContext } from 'react'
 import { View, Text, Picker,ScrollView } from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import { HillsContext } from "../context/HillsContextProvider";
+import {HeaderIconButton} from '../components/HeaderIconButton';
 import Input from '../components/input'
 import Button from '../components/button'
 
-const Hillstrip = () => {
+const Hillstrip = () => { ({navigation}) 
+React.useLayoutEffect(() => {
+  navigation.setOptions({
+    headerRight: () => (
+     
+        <HeaderIconButton
+          name={'logout'}
+          onPress={() => navigation.navigate("Login")}
+        />
+     
+    ),
+  });
+}, [navigation]);
     const [error, setError] = useState('');
     const {
         billingDatas,
@@ -47,16 +60,17 @@ const Hillstrip = () => {
       }
 
     return (
-      <ScrollView>
+      <ScrollView
+        style={{
+           flex: 1,
+           backgroundColor: '#fff',
+         }}>
         <View
-            style={{
-                flex: 1,
-                backgroundColor: '#fff',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-
-            <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
+         style={{
+            alignItems: 'center',
+          }}>
+            
+            <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 10, paddingVertical: 25 }}>
                 Hills Trip
             </Text>
             {error ? <Text style={{ color: "red", paddingBottom: 12, fontSize: 18 }} >{error}</Text> : null}

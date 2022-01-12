@@ -2,10 +2,23 @@ import React,{useState, useContext} from 'react'
 import { View, Text, Picker, ScrollView } from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import { NormalContext } from "../context/NormalContextProvider";
+import {HeaderIconButton} from '../components/HeaderIconButton';
 import Input from '../components/input'
 import Button from '../components/button'
 
-export default function NormalTrip() {
+export default function NormalTrip() {({navigation}) 
+React.useLayoutEffect(() => {
+  navigation.setOptions({
+    headerRight: () => (
+     
+        <HeaderIconButton
+          name={'logout'}
+          onPress={() => navigation.navigate("Login")}
+        />
+     
+    ),
+  });
+}, [navigation]);
   const [error, setError] = useState('');
   
   const navigation = useNavigation();
@@ -44,16 +57,17 @@ export default function NormalTrip() {
     handleChangeBilling
   } = useContext(NormalContext);
   return (
-    <ScrollView>
+    <ScrollView
+    style={{
+       flex: 1,
+       backgroundColor: '#fff',
+     }}>
     <View
-      style={{
-        flex: 1,
-        backgroundColor: '#fff',
+     style={{
         alignItems: 'center',
-        justifyContent: 'center'
       }}>
         
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 10, paddingVertical: 25 }}>
         NORMAL TAXI
       </Text>
       {error ? <Text style={{ color: "red", paddingBottom: 12, fontSize: 18 }} >{error}</Text> : null}

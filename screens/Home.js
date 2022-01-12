@@ -1,12 +1,26 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import {HeaderIconButton} from '../components/HeaderIconButton';
 import { SafeAreaView, StyleSheet, View, Button, Image} from "react-native";
 const Separator = () => (
   <View style={styles.separator} />
 );
 
 
-const Home = () => {
+const Home = () => { ({navigation}) 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      
+      headerRight: () => (
+       
+          <HeaderIconButton
+            name={'logout'}
+            onPress={() => navigation.navigate("Login")}
+          />
+       
+      ),
+    });
+  }, [navigation]);
   const navigation = useNavigation();
   
   return (

@@ -101,19 +101,19 @@ const {
                     {normalData.driver_beta || 0}  
                 </Text>
                 }
-            { normalData.extra_amt >0 ? ( <>
+            { normalData.extra_amt >0 ? ( <View>
         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Extra Amount: 
           {normalData.extra_amt}
       </Text>
-              </>):(<></>) }
-      { normalData.tolls >0 ? ( <>
+              </View>):(<View></View>) }
+      { normalData.tolls >0 ? ( <View>
         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Toll Price: 
           {normalData.tolls}
       </Text>
-          </>):(<></>) }
-      { normalData.discount >0 ? ( <>
+          </View>):(<View></View>) }
+      { normalData.discount >0 ? ( <View>
             
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           <b>Subtotal :
@@ -124,7 +124,7 @@ const {
           Discount :
            {normalData.discount}
       </Text>
-          </>):(<></>) }
+          </View>):(<View></View>) }
               <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
                  Total : {value}
               </Text>

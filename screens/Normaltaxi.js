@@ -179,7 +179,7 @@ React.useLayoutEffect(() => {
           returnKeyType='next'
           returnKeyLabel='next'
           value = {normalData.extra}
-          keyboardType = 'numeric'
+          keyboardType = 'default'
           onChangeText={value => handleChangeBilling(value,'extra')}
         />
       </View>
@@ -192,7 +192,7 @@ React.useLayoutEffect(() => {
           returnKeyType='next'
           returnKeyLabel='next'
           value = {normalData.extra_amt}
-          keyboardType = 'default'
+          keyboardType = 'numeric'
           onChangeText={value => handleChangeBilling(value,'extra_amt')}
         />
       </View>

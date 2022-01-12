@@ -104,18 +104,18 @@ const Billlocaltrip = () => {
                    Extra kms charge : 
                    {localData.xtrakm * 12 || 0}
                 </Text>
-       { localData.extra_amt >0 ? ( <>
+       { localData.extra_amt >0 ? ( <View>
         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Extra Amount: 
           {localData.extra_amt}
       </Text>
-              </>):(<></>) }
-      { localData.tolls >0 ? ( <>
+              </View>):(<View></View>) }
+      { localData.tolls >0 ? ( <View>
         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Toll Price: 
           {localData.tolls}
       </Text>
-          </>):(<></>) }
+          </View>):(<View></View>) }
       { localData.discount >0 ? ( <>
             
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
@@ -127,7 +127,7 @@ const Billlocaltrip = () => {
           Discount :
            {localData.discount}
       </Text>
-          </>):(<></>) }
+          </>):(<View></View>) }
               <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
                  Total : { value }
               </Text>

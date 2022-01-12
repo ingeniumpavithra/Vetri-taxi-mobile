@@ -1,5 +1,5 @@
 import React,{useContext} from "react";
-import { StyleSheet, Text, View,} from "react-native"
+import { StyleSheet, Text, View} from "react-native"
 import Card from '../components/CalCard'
 import axios from 'axios';
 import Button from '../components/button'
@@ -93,19 +93,19 @@ const Billonedaytrip = () => {
           {billingData.distance_travelled * 7 || 0}
       </Text>
       
-      { billingData.extra_amt >0 ? ( <>
+      { billingData.extra_amt >0 ? ( <View>
         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Extra Amount: 
           {billingData.extra_amt}
       </Text>
-              </>):(<></>) }
-      { billingData.tolls >0 ? ( <>
+              </View>):(<View></View>) }
+      { billingData.tolls >0 ? ( <View>
         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Toll Price: 
           {billingData.tolls}
       </Text>
-          </>):(<></>) }
-      { billingData.discount >0 ? ( <>
+          </View>):(<View></View>) }
+      { billingData.discount >0 ? ( <View>
             
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           <b>Subtotal :
@@ -116,7 +116,7 @@ const Billonedaytrip = () => {
           Discount :
            {billingData.discount}
       </Text>
-          </>):(<></>) }
+          </View>):(<View></View>) }
       
       
       <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>

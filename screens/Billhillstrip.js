@@ -104,19 +104,19 @@ const Billhillstrip = () => {
           Driver Batta(Rs):  
           {batta || 0}
       </Text>
-      { billingDatas.extra_amt >0 ? ( <>
+      { billingDatas.extra_amt >0 ? ( <View>
         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Extra Amount: 
           {billingDatas.extra_amt}
       </Text>
-              </>):(<></>) }
-      { billingDatas.tolls >0 ? ( <>
+              </View>):(<View></View>) }
+      { billingDatas.tolls >0 ? ( <View>
         <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Toll Price: 
           {billingDatas.tolls}
       </Text>
-          </>):(<></>) }
-      { billingDatas.discount >0 ? ( <>
+          </View>):(<View></View>) }
+      { billingDatas.discount >0 ? ( <View>
             
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           <b>Subtotal :
@@ -127,7 +127,7 @@ const Billhillstrip = () => {
           Discount :
            {billingDatas.discount}
       </Text>
-          </>):(<></>) }
+          </View>):(<View></View>) }
           <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
                  Total : { value }
               </Text>

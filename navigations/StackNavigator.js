@@ -34,8 +34,7 @@ const StackNavigator = () => {
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Login" component={Login} />
-      
+      <Stack.Screen options={{headerShown: false}} name="Login" component={Login} />
         <Stack.Screen name="localTrip" component={LocalTrip} />
         <Stack.Screen name="onedaytrip" component={onedaytrip} />
         <Stack.Screen name="Billonedaytrip" component={Billonedaytrip} />

@@ -1,11 +1,28 @@
 import React,{useState, useContext} from 'react'
-import { View ,Text , form, TextInput} from 'react-native'
+import { View ,Text , ScrollView} from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
+import {HeaderIconButton} from '../components/HeaderIconButton';
 import { BillingContext } from "../context/BillingContextProvider";
+import { ScreenStackHeaderLeftView } from 'react-native-screens';
 
-export default function onedaytrip() {
+export default function onedaytrip() { ({navigation}) 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+       
+          <HeaderIconButton
+            name={'logout'}
+            onPress={() => navigation.navigate("Login")}
+            
+          />
+          
+       
+      ),
+    });
+  }, [navigation]);
+
   
   const {
     billingData,
@@ -13,15 +30,17 @@ export default function onedaytrip() {
   } = useContext(BillingContext);
   const navigation = useNavigation();
       return (
+        <ScrollView
+        style={{
+           flex: 1,
+           backgroundColor: '#fff',
+         }}>
         <View
          style={{
-            flex: 1,
-            backgroundColor: '#fff',
             alignItems: 'center',
-            justifyContent: 'center'
           }}>
             
-            <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
+            <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 10, paddingVertical: 25 }}>
             ONE DAY TRIP
       </Text>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -136,5 +155,6 @@ export default function onedaytrip() {
         />
      
         </View>
+        </ScrollView>
     )
 }

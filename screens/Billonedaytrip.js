@@ -5,7 +5,7 @@ import axios from 'axios';
 import Button from '../components/button'
 import {BillingContext} from "../context/BillingContextProvider";
 import { AuthContext } from "../context/AuthContextProvider";
-
+import {API_URL} from "@env";
 import { useNavigation } from "@react-navigation/native";
 
 
@@ -53,9 +53,9 @@ const Billonedaytrip = () => {
   }
 
   async function addBill() {
-    
+    console.log(API_URL)
     try{
-      const response = await axios.post("http://127.0.0.1:8000/api/auth/add-day-trip",data);
+      const response = await axios.post(`${API_URL}/add-day-trip`,data);
     if(response){
       alert(response.data.message);
       navigation.navigate("Home");

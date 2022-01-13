@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import Button from '../components/button'
 import { LocalContext } from "../context/LocalContextProvider";
 import { AuthContext } from "../context/AuthContextProvider";
-
+import {API_URL} from "@env";
 
 const Billlocaltrip = () => {   
 
@@ -58,7 +58,7 @@ const Billlocaltrip = () => {
       async function addBill() {
         console.log(data);
         try{
-          const response = await axios.post("http://127.0.0.1:8000/api/auth/local-trip", data);
+          const response = await axios.post(`${API_URL}/local-trip`, data);
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");

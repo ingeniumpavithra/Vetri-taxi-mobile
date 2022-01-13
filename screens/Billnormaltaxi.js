@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import Button from '../components/button'
 import {NormalContext} from "../context/NormalContextProvider";
 import { AuthContext } from "../context/AuthContextProvider";
+import {API_URL} from "@env";
 
 const Billnormaltrip = () => {  
 
@@ -58,7 +59,7 @@ const {
       async function addBill() {
         console.log(data);
         try{
-            const response = await axios.post("http://127.0.0.1:8000/api/auth/taxi-trip",data);
+            const response = await axios.post(`${API_URL}/taxi-trip`,data);
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");

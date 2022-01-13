@@ -57,6 +57,14 @@ const Billonedaytrip = () => {
     if(response){
       alert(response.data.message);
       navigation.navigate("Home");
+        billingData.customer_name='',
+        billingData.phone_number='',
+        billingData.initial_payment=1800,
+        billingData.distance_travelled='',
+        billingData.tolls='',
+        billingData.extra='',
+        billingData.extra_amt='',
+        billingData.discount=''
     }
     }catch(e){
       console.log(e);

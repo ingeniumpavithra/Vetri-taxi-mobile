@@ -67,6 +67,15 @@ const Billhillstrip = () => {
         if(response){
           alert(response.data.message);
           navigation.navigate("Home");
+          billingDatas.customer_name='',
+          billingDatas.phone_number='',
+          billingDatas.members= 4,
+          billingDatas.tripfrom='Tiruchengode',
+          billingDatas.trip_days='',
+          billingDatas.tolls='',
+          billingDatas.extra='',
+          billingDatas.extra_amt='',
+          billingDatas.discount=''
         }
      
     }catch(e){

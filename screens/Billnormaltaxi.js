@@ -63,6 +63,18 @@ const {
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");
+                normalData.from='',
+                normalData.to='',
+                normalData.customer_name='',
+                normalData.phone='',
+                normalData.distance_travelled='',
+                normalData.waiting_hour=0,
+                normalData.waiting_chargeamount=0,
+                normalData.driver_beta=0,
+                normalData.tolls='',
+                normalData.extra='',
+                normalData.extra_amt='',
+                normalData.discount=''
             }
          
         }catch(e){

@@ -62,6 +62,16 @@ const Billlocaltrip = () => {
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");
+                localData.name='',
+                localData.phone='',
+                localData.tripkms=0,
+                localData.triphr=0,
+                localData.xtrakm='',
+                localData.tolls='',
+                localData.extra='',
+                localData.extra_amt='',
+                localData.discount=''
+            
             }
          
         }catch(e){

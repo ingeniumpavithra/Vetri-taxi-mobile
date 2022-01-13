@@ -7,6 +7,7 @@ import axios from 'axios';
 import Button from '../components/button'
 import Input from '../components/input'
 import { useNavigation } from "@react-navigation/native";
+import {API_URL} from "@env";
 
 
 
@@ -46,7 +47,7 @@ export default function Login() {
           password : values.password,
       }
           try{
-            const response = await axios.post("http://127.0.0.1:8000/api/auth/login", data);
+            const response = await axios.post(`${API_URL}/login`, data);
 
             if(response.data.user.role==="admin"){
               alert(" Admin cannot access mobile., Please use desktop");

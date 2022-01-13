@@ -6,6 +6,7 @@ import Button from '../components/button'
 import { AuthContext } from "../context/AuthContextProvider";
 import {HillsContext} from "../context/HillsContextProvider";
 import { useNavigation } from "@react-navigation/native";
+import {API_URL} from "@env";
 
   
 const Billhillstrip = () => {   
@@ -62,7 +63,7 @@ const Billhillstrip = () => {
    async function addBill() {
     
     try{
-        const response = await axios.post("http://127.0.0.1:8000/api/auth/hills-trip",data);
+        const response = await axios.post(`${API_URL}/hills-trip`,data);
         if(response){
           alert(response.data.message);
           navigation.navigate("Home");

@@ -11,7 +11,11 @@ export const LocalContextProvider = (props) => {
     phone:'',
     tripkms:0,
     triphr:0,
-    xtrakm:0,
+    xtrakm:'',
+    tolls:'',
+    extra:'',
+    extra_amt:'',
+    discount:''
 
   });
 

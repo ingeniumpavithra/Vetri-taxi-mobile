@@ -1,26 +1,24 @@
 import React,{useContext} from "react";
-import { StyleSheet, Text, View,} from "react-native"
+import { StyleSheet, Text, View} from "react-native"
 import Card from '../components/CalCard'
 import axios from 'axios';
 import Button from '../components/button'
-import authHeader from "../assets/header/auth-header";
 import {BillingContext} from "../context/BillingContextProvider";
+import { AuthContext } from "../context/AuthContextProvider";
+
 import { useNavigation } from "@react-navigation/native";
+
 
   
 const Billonedaytrip = () => {   
   const navigation = useNavigation();
-
-  let car_id='';
-  if(localStorage.length){
-      const user_val = localStorage.getItem('user');
-      const user = JSON.parse(user_val);
-      car_id = user.user.id; 
-  }
-
+  
   const {
     billingData,
   } = useContext(BillingContext);
+  const {
+    AuthData,
+  } = useContext(AuthContext);
   
   if(billingData.discount===''){
     billingData.discount=0;
@@ -32,14 +30,14 @@ const Billonedaytrip = () => {
     billingData.extra_amt=0;
   }
 
- 
+ let car_id ='';
     let totalPrice = billingData.initial_payment + (billingData.distance_travelled * 7);
     let calc = 0;
     billingData.discount  >0 ? calc = (parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt))-parseFloat(billingData.discount) : calc = parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt);
       const result = totalPrice + calc;
 
   let data = {
-    car_id : car_id,
+    car_id : AuthData.car_id,
     cus_name: billingData.customer_name,
     mobile: billingData.phone_number,
     distance: billingData.distance_travelled,
@@ -47,14 +45,17 @@ const Billonedaytrip = () => {
     extra: billingData.extra,
     extra_amt: billingData.extra_amt,
     discount: billingData.discount,
-    total: totalPrice
+      xtra_desc: billingData.extra,
+      xtracharge: billingData.extra_amt,
+      tollcharge: billingData.tolls,
+    total: result
    
   }
 
   async function addBill() {
     
     try{
-      const response = await axios.post("http://127.0.0.1:8000/api/auth/add-day-trip",data, { headers: authHeader() });
+      const response = await axios.post("http://127.0.0.1:8000/api/auth/add-day-trip",data);
     if(response){
       alert(response.data.message);
       navigation.navigate("Home");
@@ -91,18 +92,33 @@ const Billonedaytrip = () => {
          Total KM Price: 
           {billingData.distance_travelled * 7 || 0}
       </Text>
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-         Toll Price: 
-          {billingData.tolls|| 0}
-      </Text>
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+      
+      { billingData.extra_amt >0 ? ( <View>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Extra Amount: 
-          {billingData.extra_amt  || 0}
+          {billingData.extra_amt}
       </Text>
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+              </View>):(<View></View>) }
+      { billingData.tolls >0 ? ( <View>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Toll Price: 
+          {billingData.tolls}
+      </Text>
+          </View>):(<View></View>) }
+      { billingData.discount >0 ? ( <View>
+            
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          <b>Subtotal :
+          {totalPrice + parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt)}</b>
+      </Text>
+          
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
           Discount :
-           {billingData.discount || 0}
+           {billingData.discount}
       </Text>
+          </View>):(<View></View>) }
+      
+      
       <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
          Total :
          {result }

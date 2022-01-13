@@ -10,6 +10,10 @@ export const HillsContextProvider = (props) => {
     members: 4,
     tripfrom:'Tiruchengode',
     trip_days:'',
+    tolls:'',
+    extra:'',
+    extra_amt:'',
+    discount:''
   });
 
   const handleChangeBilling = (value,name) => {

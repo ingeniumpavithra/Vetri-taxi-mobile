@@ -5,31 +5,39 @@ import Card from '../components/CalCard'
 import { useNavigation } from "@react-navigation/native";
 import Button from '../components/button'
 import {NormalContext} from "../context/NormalContextProvider";
-import authHeader from "../assets/header/auth-header";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const Billnormaltrip = () => {  
-  
-  let car_id;
-  if(localStorage.length){
-      const user_val = localStorage.getItem('user');
-      const user = JSON.parse(user_val);
-      car_id = user.user.id; 
-  }
-
 
 //useNavigation   
     const navigation = useNavigation();
  //contextprovider   
+ const {
+  AuthData,
+} = useContext(AuthContext);
 const {
         normalData,
       } = useContext(NormalContext);
-
-      let result = normalData.distance_travelled * 12;
-
-      normalData.distance_travelled >= 300 ? result = result + normalData.driver_beta + normalData.waiting_chargeamount : result = result + normalData.waiting_chargeamount;
+  
+      if(normalData.discount===''){
+        normalData.discount=0;
+      }
+      if(normalData.tolls===''){
+        normalData.tolls=0;
+      }
+      if(normalData.extra_amt===''){
+        normalData.extra_amt=0;
+      }
+     
+      let totalPrice = normalData.distance_travelled * 12;
+      let result = 0;
+      normalData.distance_travelled >= 300 ? result = totalPrice + normalData.driver_beta + normalData.waiting_chargeamount : result = totalPrice + normalData.waiting_chargeamount
+      let calc = 0;
+      normalData.discount  >0 ? calc = (parseFloat(normalData.tolls) + parseFloat(normalData.extra_amt))-parseFloat(normalData.discount) : calc = parseFloat(normalData.tolls) + parseFloat(normalData.extra_amt);
+      let value = result + calc;
 
       let data = {
-        car_id: car_id,
+        car_id : AuthData.car_id,
         from: normalData.from,
         to: normalData.to,
         cus_name: normalData.customer_name,
@@ -38,13 +46,19 @@ const {
         w_hour: normalData.waiting_hour,
         w_charge: normalData.waiting_chargeamount,
         driver_batta: normalData.driver_beta,
-        total: result
+
+        discount: normalData.discount,
+        xtra_desc: normalData.extra,
+        xtracharge: normalData.extra_amt,
+        tollcharge: normalData.tolls,
+        
+        total: value,
       }
 
       async function addBill() {
         console.log(data);
         try{
-            const response = await axios.post("http://127.0.0.1:8000/api/auth/taxi-trip",data, { headers: authHeader() });
+            const response = await axios.post("http://127.0.0.1:8000/api/auth/taxi-trip",data);
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");
@@ -84,12 +98,35 @@ const {
               {normalData.distance_travelled >=300 &&
                 <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
                     Driver Beta: 
-                    {normalData.driver_beta || 0}
-                    
+                    {normalData.driver_beta || 0}  
                 </Text>
                 }
+            { normalData.extra_amt >0 ? ( <View>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Extra Amount: 
+          {normalData.extra_amt}
+      </Text>
+              </View>):(<View></View>) }
+      { normalData.tolls >0 ? ( <View>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Toll Price: 
+          {normalData.tolls}
+      </Text>
+          </View>):(<View></View>) }
+      { normalData.discount >0 ? ( <View>
+            
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          <b>Subtotal :
+          {result + parseFloat(normalData.tolls) + parseFloat(normalData.extra_amt)}</b>
+      </Text>
+          
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          Discount :
+           {normalData.discount}
+      </Text>
+          </View>):(<View></View>) }
               <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
-                 Total : {result}
+                 Total : {value}
               </Text>
              
               </Card>

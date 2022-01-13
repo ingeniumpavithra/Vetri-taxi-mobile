@@ -20,11 +20,13 @@ import {BillingContextProvider} from "../context/BillingContextProvider";
 import {LocalContextProvider} from "../context/LocalContextProvider";
 import {NormalContextProvider} from "../context/NormalContextProvider";
 import {HillsContextProvider} from "../context/HillsContextProvider";
+import { AuthContextProvider } from "../context/AuthContextProvider";
 //--------------------------------------
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
+    <AuthContextProvider>
     <BillingContextProvider>
       <LocalContextProvider>
        <NormalContextProvider>
@@ -32,8 +34,7 @@ const StackNavigator = () => {
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Login" component={Login} />
-      
+      <Stack.Screen options={{headerShown: false}} name="Login" component={Login} />
         <Stack.Screen name="localTrip" component={LocalTrip} />
         <Stack.Screen name="onedaytrip" component={onedaytrip} />
         <Stack.Screen name="Billonedaytrip" component={Billonedaytrip} />
@@ -48,6 +49,7 @@ const StackNavigator = () => {
     </NormalContextProvider>
     </LocalContextProvider>
     </BillingContextProvider>
+    </AuthContextProvider>
   
   );
 };

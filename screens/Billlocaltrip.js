@@ -5,45 +5,60 @@ import axios from 'axios';
 import { useNavigation } from "@react-navigation/native";
 import Button from '../components/button'
 import { LocalContext } from "../context/LocalContextProvider";
-import authHeader from "../assets/header/auth-header";
+import { AuthContext } from "../context/AuthContextProvider";
 
 
 const Billlocaltrip = () => {   
-  let car_id;
-  if(localStorage.length){
-      const user_val = localStorage.getItem('user');
-      const user = JSON.parse(user_val);
-      car_id = user.user.id; 
-  }
 
     //useNavigation   
     const navigation = useNavigation();
+    const {
+      AuthData,
+    } = useContext(AuthContext);
     const {
         localData,
         handleChangeBilling
       } = useContext(LocalContext);
 
-      const xtracharge = localData.xtrakm * 12;
+      if(localData.discount===''){
+        localData.discount=0;
+      }
+      if(localData.tolls===''){
+        localData.tolls=0;
+      }
+      if(localData.extra_amt===''){
+        localData.extra_amt=0;
+      }    
+     
+      let xtrakmcharge = localData.xtrakm * 12;
       let result = 0;
-
-      xtracharge > 0 ? result = localData.tripCharge + xtracharge : result = localData.tripCharge;
+      xtrakmcharge > 0 ? result = localData.tripCharge + xtrakmcharge : result = localData.tripCharge;
+      
+      let calc = 0;
+      localData.discount  >0 ? calc = (parseFloat(localData.tolls) + parseFloat(localData.extra_amt))-parseFloat(localData.discount) : calc = parseFloat(localData.tolls) + parseFloat(localData.extra_amt);
+      let value = calc + result;
 
       let data = {
-        car_id: car_id,
+        car_id : AuthData.car_id,
         triphr: localData.triphr,
         tripkms: localData.tripkms,
         payment: localData.tripCharge,
         cus_name: localData.name,
         mobile: localData.phone,
         xtrakm: localData.xtrakm,
-        xtracharge: xtracharge,
-        total: result
+        xtrakmcharge: xtrakmcharge,
+
+        discount: localData.discount,
+        xtra_desc: localData.extra,
+        xtracharge: localData.extra_amt,
+        tollcharge: localData.tolls,
+        total: value,
     }
 
       async function addBill() {
         console.log(data);
         try{
-          const response = await axios.post("http://127.0.0.1:8000/api/auth/local-trip", data, { headers: authHeader() });
+          const response = await axios.post("http://127.0.0.1:8000/api/auth/local-trip", data);
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");
@@ -87,12 +102,34 @@ const Billlocaltrip = () => {
               
                 <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
                    Extra kms charge : 
-                   
                    {localData.xtrakm * 12 || 0}
                 </Text>
+       { localData.extra_amt >0 ? ( <View>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Extra Amount: 
+          {localData.extra_amt}
+      </Text>
+              </View>):(<View></View>) }
+      { localData.tolls >0 ? ( <View>
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+         Toll Price: 
+          {localData.tolls}
+      </Text>
+          </View>):(<View></View>) }
+      { localData.discount >0 ? ( <>
+            
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          <b>Subtotal :
+          {result + parseFloat(localData.tolls) + parseFloat(localData.extra_amt)}</b>
+      </Text>
           
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
+          Discount :
+           {localData.discount}
+      </Text>
+          </>):(<View></View>) }
               <Text style={{ color: '#fb9403', fontSize: 28, marginBottom: 16, fontWeight: 'bold', }}>
-                 Total : { result }
+                 Total : { value }
               </Text>
              
               </Card>

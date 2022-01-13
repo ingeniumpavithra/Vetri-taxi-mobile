@@ -1,12 +1,31 @@
 import React,{useState, useContext} from 'react'
+
 import { View ,Text } from 'react-native'
+
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
+import {HeaderIconButton} from '../components/HeaderIconButton';
 import { BillingContext } from "../context/BillingContextProvider";
+import { ScreenStackHeaderLeftView } from 'react-native-screens';
 
-export default function onedaytrip() {
-  const [error, setError] = useState('');
+export default function onedaytrip() { ({navigation}) 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+       
+          <HeaderIconButton
+            name={'logout'}
+            onPress={() => navigation.navigate("Login")}
+            
+          />
+          
+       
+      ),
+    });
+  }, [navigation]);
+
+
   const {
     billingData,
     handleChangeBilling
@@ -46,15 +65,17 @@ export default function onedaytrip() {
 
   const navigation = useNavigation();
       return (
+        <ScrollView
+        style={{
+           flex: 1,
+           backgroundColor: '#fff',
+         }}>
         <View
          style={{
-            flex: 1,
-            backgroundColor: '#fff',
             alignItems: 'center',
-            justifyContent: 'center'
           }}>
             
-            <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
+            <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 10, paddingVertical: 25 }}>
             ONE DAY TRIP
       </Text>
       {error ? <Text style={{ color: "red", paddingBottom: 12, fontSize: 18 }} >{error}</Text> : null}
@@ -135,7 +156,7 @@ export default function onedaytrip() {
           returnKeyType='next'
           returnKeyLabel='next'
           value = {billingData.extra}
-          keyboardType = 'numeric'
+          keyboardType = 'default'
           onChangeText={value => handleChangeBilling(value,'extra')}
         />
       </View>
@@ -175,5 +196,6 @@ export default function onedaytrip() {
         />
      
         </View>
+        </ScrollView>
     )
 }

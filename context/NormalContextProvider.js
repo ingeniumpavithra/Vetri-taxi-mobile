@@ -12,8 +12,12 @@ export const NormalContextProvider = (props) => {
     phone:'',
     distance_travelled:'',
     waiting_hour:0,
-    waiting_chargeamount:'',
-    driver_beta:0
+    waiting_chargeamount:0,
+    driver_beta:0,
+    tolls:'',
+    extra:'',
+    extra_amt:'',
+    discount:''
   });
 
   const handleChangeBilling = (value,name) => {

@@ -10,6 +10,8 @@ export default function button({ label, onPress }) {
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: '#fb9403'
+            
+            
         }}
             activeOpacity={0.7}
             onPress={onPress}>

@@ -1,11 +1,24 @@
 import React,{useState, useContext} from 'react'
-import { View, Text ,Picker} from 'react-native'
+import { View, Text ,Picker, ScrollView} from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
 import { LocalContext } from "../context/LocalContextProvider";
+import {HeaderIconButton} from '../components/HeaderIconButton';
 
-export default function LocalTrip() {
+export default function LocalTrip() { ({navigation}) 
+React.useLayoutEffect(() => {
+  navigation.setOptions({
+    headerRight: () => (
+     
+        <HeaderIconButton
+          name={'logout'}
+          onPress={() => navigation.navigate("Login")}
+        />
+     
+    ),
+  });
+}, [navigation]);
   const [error, setError] = useState('');
   
  
@@ -39,15 +52,17 @@ const {
 const navigation = useNavigation();
   
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
+    <ScrollView
+        style={{
+           flex: 1,
+           backgroundColor: '#fff',
+         }}>
+        <View
+         style={{
+            alignItems: 'center',
+          }}>
+            
+            <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 10, paddingVertical: 25 }}>
         Local Trip
       </Text>
       {error ? <Text style={{ color: "red", paddingBottom: 12, fontSize: 18 }} >{error}</Text> : null}
@@ -114,7 +129,7 @@ const navigation = useNavigation();
           icon='arrow-with-circle-up'
           placeholder='Extra Kms'
           autoCapitalize='none'
-          autoCompleteType='none'
+          autoCompleteType='username'
           keyboardType='default'
           keyboardAppearance='dark'
           returnKeyType='next'
@@ -123,12 +138,67 @@ const navigation = useNavigation();
            onChangeText={value => handleChangeBilling(value,'xtrakm')} 
         />
       </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='signal'
+          placeholder='Toll/Parking'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {localData.tolls}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'tolls')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='home'
+          placeholder='Extra'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {localData.extra}
+          keyboardType = 'default'
+          onChangeText={value => handleChangeBilling(value,'extra')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='briefcase'
+          placeholder='Extra Amount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {localData.extra_amt}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'extra_amt')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='shield'
+          placeholder='Discount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {localData.discount}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'discount')}
+        />
+      </View>
+     
       <Button  label='Next'
        onPress={() => { if(isValidForm()){
         navigation.navigate("Billlocaltrip")
        }
         }}
       />
+     
     </View>
+    </ScrollView>
   )
 }

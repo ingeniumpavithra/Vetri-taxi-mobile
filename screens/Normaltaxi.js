@@ -1,16 +1,29 @@
 import React,{useState, useContext} from 'react'
-import { View, Text, Picker } from 'react-native'
+import { View, Text, Picker, ScrollView } from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import { NormalContext } from "../context/NormalContextProvider";
+import {HeaderIconButton} from '../components/HeaderIconButton';
 import Input from '../components/input'
 import Button from '../components/button'
 
-export default function NormalTrip() {
+export default function NormalTrip() {({navigation}) 
+React.useLayoutEffect(() => {
+  navigation.setOptions({
+    headerRight: () => (
+     
+        <HeaderIconButton
+          name={'logout'}
+          onPress={() => navigation.navigate("Login")}
+        />
+     
+    ),
+  });
+}, [navigation]);
   const [error, setError] = useState('');
   
   const navigation = useNavigation();
   const isValidForm = () => {
-    if (!isValidObjField(normalData.from, normalData.to, normalData.customer_name, normalData.phone, normalData.distance_travelled, normalData.waiting_hour))
+    if (!isValidObjField(normalData.from, normalData.to, normalData.customer_name, normalData.phone, normalData.distance_travelled ))
       return updateError('Required all fields !', setError);
     if (!normalData.from.trim() || normalData.from.length < 4)
       return updateError('Invalid start place !', setError);
@@ -26,9 +39,9 @@ export default function NormalTrip() {
 
   }
 
-  const isValidObjField = (start, end, name, phone, km, hr) => {
+  const isValidObjField = (start, end, name, phone, km, ) => {
 
-    return start.trim() && end.trim() && name.trim() && phone.trim && km.trim && hr.trim
+    return start.trim() && end.trim() && name.trim() && phone.trim() && km.trim() 
   }
 
   const updateError = (error, stateUpdater) => {
@@ -44,15 +57,17 @@ export default function NormalTrip() {
     handleChangeBilling
   } = useContext(NormalContext);
   return (
+    <ScrollView
+    style={{
+       flex: 1,
+       backgroundColor: '#fff',
+     }}>
     <View
-      style={{
-        flex: 1,
-        backgroundColor: '#fff',
+     style={{
         alignItems: 'center',
-        justifyContent: 'center'
       }}>
-
-      <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16 }}>
+        
+        <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 10, paddingVertical: 25 }}>
         NORMAL TAXI
       </Text>
       {error ? <Text style={{ color: "red", paddingBottom: 12, fontSize: 18 }} >{error}</Text> : null}
@@ -141,14 +156,70 @@ export default function NormalTrip() {
                     <Picker.Item label="5" value =  "5"/>
                 </Picker>
             </View>
-      <Button label='Next'      
-       onPress={() => { if(isValidForm()){
-        navigation.navigate("Billnormaltrip")
-       }
-        }
-         
-    }/>
 
+            <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='signal'
+          placeholder='Toll/Parking'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {normalData.tolls}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'tolls')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='home'
+          placeholder='Extra'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {normalData.extra}
+          keyboardType = 'default'
+          onChangeText={value => handleChangeBilling(value,'extra')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='briefcase'
+          placeholder='Extra Amount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {normalData.extra_amt}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'extra_amt')}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+        <Input
+          icon='shield'
+          placeholder='Discount'
+          autoCapitalize='none'
+          keyboardAppearance='dark'
+          returnKeyType='next'
+          returnKeyLabel='next'
+          value = {normalData.discount}
+          keyboardType = 'numeric'
+          onChangeText={value => handleChangeBilling(value,'discount')}
+        />
+      </View>
+      
+      <Button label='Next'      
+       onPress={() => {
+        if(isValidForm()){
+          navigation.navigate("Billnormaltrip")
+        }
+      }  
+       
+     }/>
+  
     </View>
+    </ScrollView>
   )
 }

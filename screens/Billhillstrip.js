@@ -6,7 +6,7 @@ import Button from '../components/button'
 import { AuthContext } from "../context/AuthContextProvider";
 import {HillsContext} from "../context/HillsContextProvider";
 import { useNavigation } from "@react-navigation/native";
-import {API_URL} from "@env";
+import API_URL from "./env";
 
   
 const Billhillstrip = () => {   
@@ -119,9 +119,9 @@ const Billhillstrip = () => {
           </View>):(<View></View>) }
       { billingDatas.discount >0 ? ( <View>
             
-          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-          <b>Subtotal :
-          {result + parseFloat(billingDatas.tolls) + parseFloat(billingDatas.extra_amt)}</b>
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,fontWeight: 'bold',}}>
+          Subtotal :
+          {result + parseFloat(billingDatas.tolls) + parseFloat(billingDatas.extra_amt)}
       </Text>
           
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>

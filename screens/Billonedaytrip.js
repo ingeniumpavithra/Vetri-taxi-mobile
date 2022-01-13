@@ -5,9 +5,8 @@ import axios from 'axios';
 import Button from '../components/button'
 import {BillingContext} from "../context/BillingContextProvider";
 import { AuthContext } from "../context/AuthContextProvider";
-import {API_URL} from "@env";
 import { useNavigation } from "@react-navigation/native";
-
+import API_URL from "./env";
 
   
 const Billonedaytrip = () => {   
@@ -53,7 +52,6 @@ const Billonedaytrip = () => {
   }
 
   async function addBill() {
-    console.log(API_URL)
     try{
       const response = await axios.post(`${API_URL}/add-day-trip`,data);
     if(response){
@@ -107,9 +105,9 @@ const Billonedaytrip = () => {
           </View>):(<View></View>) }
       { billingData.discount >0 ? ( <View>
             
-          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-          <b>Subtotal :
-          {totalPrice + parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt)}</b>
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,fontWeight: 'bold',}}>
+          Subtotal :
+          {totalPrice + parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt)}
       </Text>
           
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>

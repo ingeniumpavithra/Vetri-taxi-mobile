@@ -7,7 +7,7 @@ import axios from 'axios';
 import Button from '../components/button'
 import Input from '../components/input'
 import { useNavigation } from "@react-navigation/native";
-import {API_URL} from "@env";
+import API_URL from "./env";
 
 
 
@@ -62,7 +62,7 @@ export default function Login() {
             }
           
           }catch(e){
-            alert(" Invalid username or password");
+            alert(" Invalid username or password"+e);
             console.log(e);
           }
       }

@@ -1,13 +1,15 @@
 import React,{useState, useContext} from 'react'
-import { View ,Text , ScrollView} from 'react-native'
+
+import { View ,Text ,ScrollView} from 'react-native'
+
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
 import {HeaderIconButton} from '../components/HeaderIconButton';
 import { BillingContext } from "../context/BillingContextProvider";
-import { ScreenStackHeaderLeftView } from 'react-native-screens';
 
 export default function onedaytrip() { ({navigation}) 
+const [error, setError] = useState('');
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -23,11 +25,44 @@ export default function onedaytrip() { ({navigation})
     });
   }, [navigation]);
 
-  
+
   const {
     billingData,
     handleChangeBilling
   } = useContext(BillingContext);
+
+  const isValidForm = () => {
+    // 
+    if (!isValidObjField(billingData.customer_name,billingData.phone_number, billingData.distance_travelled))
+      return updateError('Required all fields !', setError);
+   
+    if (!billingData.customer_name.trim() || billingData.customer_name.length < 3)
+      return updateError('Invalid username !', setError);
+    if (!billingData.phone_number.trim() || billingData.phone_number.length != 10 || !isNaN(billingData.phone_number) )
+      return updateError('Phone number invalid !', setError);
+   
+    if (!billingData.distance_travelled.trim())
+      return updateError('Distance travel required !', setError);
+   
+    if (billingData.discount < 0 )
+      return updateError('Enter valid Discount!', setError);
+   
+    return true
+
+  }
+
+  const isValidObjField = ( name, phone_number,km,) => {
+    
+    return  name.trim() && phone_number.trim() && km.trim()
+  }
+
+  const updateError = (error, stateUpdater) => {
+    stateUpdater(error);
+    setTimeout(() => {
+      stateUpdater('');
+    }, 2600);
+  }
+
   const navigation = useNavigation();
       return (
         <ScrollView
@@ -43,6 +78,7 @@ export default function onedaytrip() { ({navigation})
             <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 10, paddingVertical: 25 }}>
             ONE DAY TRIP
       </Text>
+      {error ? <Text style={{ color: "red", paddingBottom: 12, fontSize: 18 }} >{error}</Text> : null}
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
         <Input
           icon='user'
@@ -78,6 +114,8 @@ export default function onedaytrip() { ({navigation})
           keyboardAppearance='dark'
           returnKeyType='next'
           returnKeyLabel='next'
+          editable={false}
+          selectTextOnFocus={false}
           value = {billingData.initial_payment}
           onChangeText={value => handleChangeBilling(value,'initial_payment')}
         />
@@ -150,7 +188,10 @@ export default function onedaytrip() { ({navigation})
       </View>
      
       <Button  label='Next'
-       onPress={() => navigation.navigate("Billonedaytrip")}
+       onPress={() =>  { if(isValidForm()){
+        navigation.navigate("Billonedaytrip")
+}
+}} 
 
         />
      

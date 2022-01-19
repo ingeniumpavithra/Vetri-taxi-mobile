@@ -1,15 +1,15 @@
 import React,{useState, useContext} from 'react'
 
-import { View ,Text } from 'react-native'
+import { View ,Text ,ScrollView} from 'react-native'
 
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/input'
 import Button from '../components/button'
 import {HeaderIconButton} from '../components/HeaderIconButton';
 import { BillingContext } from "../context/BillingContextProvider";
-import { ScreenStackHeaderLeftView } from 'react-native-screens';
 
 export default function onedaytrip() { ({navigation}) 
+const [error, setError] = useState('');
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (

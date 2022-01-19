@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import Button from '../components/button'
 import { LocalContext } from "../context/LocalContextProvider";
 import { AuthContext } from "../context/AuthContextProvider";
-import {API_URL} from "@env";
+import API_URL from "./env";
 
 const Billlocaltrip = () => {   
 
@@ -62,6 +62,16 @@ const Billlocaltrip = () => {
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");
+                localData.name='',
+                localData.phone='',
+                localData.tripkms=0,
+                localData.triphr=0,
+                localData.xtrakm='',
+                localData.tolls='',
+                localData.extra='',
+                localData.extra_amt='',
+                localData.discount=''
+            
             }
          
         }catch(e){
@@ -118,9 +128,9 @@ const Billlocaltrip = () => {
           </View>):(<View></View>) }
       { localData.discount >0 ? ( <>
             
-          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-          <b>Subtotal :
-          {result + parseFloat(localData.tolls) + parseFloat(localData.extra_amt)}</b>
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,fontWeight: 'bold',}}>
+          Subtotal :
+          {result + parseFloat(localData.tolls) + parseFloat(localData.extra_amt)}
       </Text>
           
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>

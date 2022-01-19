@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import Button from '../components/button'
 import {NormalContext} from "../context/NormalContextProvider";
 import { AuthContext } from "../context/AuthContextProvider";
-import {API_URL} from "@env";
+import API_URL from "./env";
 
 const Billnormaltrip = () => {  
 
@@ -63,6 +63,18 @@ const {
             if(response){
               alert(response.data.message);
               navigation.navigate("Home");
+                normalData.from='',
+                normalData.to='',
+                normalData.customer_name='',
+                normalData.phone='',
+                normalData.distance_travelled='',
+                normalData.waiting_hour=0,
+                normalData.waiting_chargeamount=0,
+                normalData.driver_beta=0,
+                normalData.tolls='',
+                normalData.extra='',
+                normalData.extra_amt='',
+                normalData.discount=''
             }
          
         }catch(e){
@@ -116,9 +128,9 @@ const {
           </View>):(<View></View>) }
       { normalData.discount >0 ? ( <View>
             
-          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
-          <b>Subtotal :
-          {result + parseFloat(normalData.tolls) + parseFloat(normalData.extra_amt)}</b>
+          <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,fontWeight: 'bold',}}>
+          Subtotal :
+          {result + parseFloat(normalData.tolls) + parseFloat(normalData.extra_amt)}
       </Text>
           
           <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>

@@ -5,7 +5,7 @@ export const AuthContext = createContext(null);
 
 export const AuthContextProvider = (props) => {
 
-    const [AuthData,setAuthData] = useState({
+    let [AuthData,setAuthData] = useState({
         car_id:'',
         car_no:'',
         token:'',

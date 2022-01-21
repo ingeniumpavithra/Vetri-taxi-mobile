@@ -37,9 +37,10 @@ const StackNavigator = () => {
        <HillsContextProvider>
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
+      <Stack.Screen options={{headerShown: false}} name="Login" component={Login} />
       <Stack.Screen name="Mainhome" component={Mainhome} />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen options={{headerShown: false}} name="Login" component={Login} />
+      
         <Stack.Screen name="localTrip" component={LocalTrip} />
         <Stack.Screen name="onedaytrip" component={onedaytrip} />
         <Stack.Screen name="Billonedaytrip" component={Billonedaytrip} />

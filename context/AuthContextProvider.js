@@ -7,6 +7,7 @@ export const AuthContextProvider = (props) => {
 
     const [AuthData,setAuthData] = useState({
         car_id:'',
+        car_no:'',
         token:'',
         header:'',
       });
@@ -15,7 +16,7 @@ export const AuthContextProvider = (props) => {
             const jsonValue = await AsyncStorage.getItem('user');
             const user_val = JSON.parse(jsonValue);
             if(user_val && user_val.access_token){
-              setAuthData(AuthData => ({...AuthData, ['car_id']:user_val.user.id,['token']:user_val.access_token,['header']:'Authorization: Bearer ' + user_val.access_token}))
+              setAuthData(AuthData => ({...AuthData, ['car_id']:user_val.user.id,['car_no']:user_val.user.name,['token']:user_val.access_token,['header']:'Authorization: Bearer ' + user_val.access_token}))
             }
           } catch(e) {
             console.log(e)

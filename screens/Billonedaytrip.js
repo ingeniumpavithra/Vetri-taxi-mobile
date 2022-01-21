@@ -30,13 +30,17 @@ const Billonedaytrip = () => {
   }
 
  let car_id ='';
-    let totalPrice = billingData.initial_payment + (billingData.distance_travelled * 7);
+ let distance_charge = 0;
+ distance_charge = billingData.distance_travelled * 7;
+    let totalPrice = billingData.initial_payment + (distance_charge);
     let calc = 0;
     billingData.discount  >0 ? calc = (parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt))-parseFloat(billingData.discount) : calc = parseFloat(billingData.tolls) + parseFloat(billingData.extra_amt);
       const result = totalPrice + calc;
 
   let data = {
     car_id : AuthData.car_id,
+    car_no : AuthData.car_no,
+    distance_charge: distance_charge,
     cus_name: billingData.customer_name,
     mobile: billingData.phone_number,
     distance: billingData.distance_travelled,
@@ -96,7 +100,7 @@ const Billonedaytrip = () => {
       
       <Text style={{ color: '#223e4b', fontSize: 20, marginBottom: 16,}}>
          Total KM Price: 
-          {billingData.distance_travelled * 7 || 0}
+          {distance_charge}
       </Text>
       
       { billingData.extra_amt >0 ? ( <View>

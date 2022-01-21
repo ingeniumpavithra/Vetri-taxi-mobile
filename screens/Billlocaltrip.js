@@ -40,6 +40,7 @@ const Billlocaltrip = () => {
 
       let data = {
         car_id : AuthData.car_id,
+        car_no : AuthData.car_no,
         triphr: localData.triphr,
         tripkms: localData.tripkms,
         payment: localData.tripCharge,

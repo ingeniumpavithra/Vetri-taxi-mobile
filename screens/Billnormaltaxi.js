@@ -30,7 +30,8 @@ const {
         normalData.extra_amt=0;
       }
      
-      let totalPrice = normalData.distance_travelled * 12;
+      let totalPrice = 0;
+      totalPrice = normalData.distance_travelled * 12;
       let result = 0;
       normalData.distance_travelled >= 300 ? result = totalPrice + normalData.driver_beta + normalData.waiting_chargeamount : result = totalPrice + normalData.waiting_chargeamount
       let calc = 0;
@@ -39,6 +40,8 @@ const {
 
       let data = {
         car_id : AuthData.car_id,
+        car_no : AuthData.car_no,
+        distance_charge: totalPrice,
         from: normalData.from,
         to: normalData.to,
         cus_name: normalData.customer_name,

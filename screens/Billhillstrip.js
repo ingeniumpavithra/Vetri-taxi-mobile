@@ -44,6 +44,7 @@ const Billhillstrip = () => {
 
   let data = {
     car_id : AuthData.car_id,
+    car_no : AuthData.car_no,
     trip_from: billingDatas.tripfrom,
     trip_to: billingDatas.tripto,
     payment: pay,

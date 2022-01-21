@@ -17,8 +17,11 @@ const [error, setError] = useState('');
           <HeaderIconButton
             name={'logout'}
             onPress={() => navigation.navigate("Login")}
+           
+            />
+      
             
-          />
+          
           
        
       ),
@@ -38,7 +41,7 @@ const [error, setError] = useState('');
    
     if (!billingData.customer_name.trim() || billingData.customer_name.length < 3)
       return updateError('Invalid username !', setError);
-    if (!billingData.phone_number.trim() || billingData.phone_number.length != 10 || !isNaN(billingData.phone_number) )
+    if (!billingData.phone_number.trim() || billingData.phone_number.length != 10 )
       return updateError('Phone number invalid !', setError);
    
     if (!billingData.distance_travelled.trim())

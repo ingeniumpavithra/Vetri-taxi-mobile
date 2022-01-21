@@ -9,7 +9,8 @@ export default function button({ label, onPress }) {
             width: 150,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#fb9403'
+            backgroundColor: '#fb9403',
+            marginBottom: 20
             
             
         }}

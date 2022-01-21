@@ -28,7 +28,7 @@ const Home = () => { ({navigation})
         
       <Button
         onPress={() => navigation.navigate("onedaytrip")}
-        title="One Day Trip"
+        title="Day Rent"
        color="#ffc107" 
        />  
      
@@ -42,7 +42,7 @@ const Home = () => { ({navigation})
    <Separator />
    <Button
         onPress={() => navigation.navigate("localTrip")}
-        title="Local Trip"
+        title="Hours Trip"
        color="#ffc107" 
        />  
    <Separator />

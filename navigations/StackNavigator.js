@@ -4,7 +4,11 @@ import { StyleSheet, Text, View } from "react-native";
 
 //--------------Home--------------------
 import Home from "../screens/Home";
+import Mainhome from "../screens/Mainhome";
 import Login from "../screens/Login";
+//-----------Profile---------------------
+import Driverlogin from "../screens/Driverlogin"
+import petrol from "../screens/petrol"
 //------------Screens-------------------
 import onedaytrip from "../screens/onedaytrip"
 import LocalTrip from "../screens/localTrip";
@@ -33,9 +37,9 @@ const StackNavigator = () => {
        <HillsContextProvider>
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
-      <Stack.Screen options={{headerShown: false}} name="Login" component={Login} />
+      <Stack.Screen name="Mainhome" component={Mainhome} />
       <Stack.Screen name="Home" component={Home} />
-      
+      <Stack.Screen options={{headerShown: false}} name="Login" component={Login} />
         <Stack.Screen name="localTrip" component={LocalTrip} />
         <Stack.Screen name="onedaytrip" component={onedaytrip} />
         <Stack.Screen name="Billonedaytrip" component={Billonedaytrip} />
@@ -44,6 +48,9 @@ const StackNavigator = () => {
         <Stack.Screen name="Billlocaltrip" component={Billlocaltrip} />
         <Stack.Screen name="Hillstrip" component={Hillstrip} />
         <Stack.Screen name="Normaltaxi" component={Normaltaxi} />
+        <Stack.Screen name="Driverlogin" component={Driverlogin} />
+        <Stack.Screen name="petrol" component={petrol} />
+
       </Stack.Group>
     </Stack.Navigator>
     </HillsContextProvider>

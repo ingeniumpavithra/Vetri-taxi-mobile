@@ -54,7 +54,7 @@ export default function Login() {
               navigation.navigate("Login");
             }else{
               alert("Login Sucess");
-              navigation.navigate("Home");
+              navigation.navigate("Mainhome");
               AsyncStorage.setItem(
                 "user",
                 JSON.stringify(response.data)
